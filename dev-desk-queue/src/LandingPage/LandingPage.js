@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Link, Route } from "react-router-dom";
+import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import LogIn from "../components/LogIn";
 import SignUp from "../components/SignUp";
 import Dashboard from "../components/Dashboard";
@@ -10,18 +10,16 @@ const Container = styled.div`
   width: 100%;
   height: 100vh;
   flex-direction: column;
+  border: 1px solid black;
 `;
 
 const NavContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   width: 100%;
   height: fit-content;
-
   padding: 10px 20px;
-
   border: 1px solid black;
 `;
 
@@ -37,11 +35,10 @@ const NavBar = styled.nav`
   width: 500px;
 `;
 
-
 export default class Ticket extends Component {
   render() {
-    return( 
-        <Container>
+    return (
+      <Container>
         <NavContainer>
           <LogoContainer>
             <p>DevDesk_Q</p>
@@ -49,14 +46,13 @@ export default class Ticket extends Component {
           <NavBar>
             <Link to="login">Log In</Link>
             <Link to="signup">Sign Up</Link>
-            <Link to="dashboard">Dashboard</Link>
           </NavBar>
         </NavContainer>
-        <Route path="/login" component={LogIn} />
-        <Route path="/signup" component={SignUp} />
-        <Route path="/dashboard" component={Dashboard} />
-        </Container>
+          <Route path="/login" component={LogIn} />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/dashboard" component={Dashboard} />
+         
+      </Container>
     );
-
   }
 }

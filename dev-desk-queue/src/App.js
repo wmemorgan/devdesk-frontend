@@ -1,5 +1,6 @@
 import React from "react";
-import LandingPage from "./LandingPage/LandingPage"
+import LandingPage from "./LandingPage/LandingPage";
+import { BrowserRouter as Router } from "react-router-dom";
 
 /*
   Landing Page
@@ -8,7 +9,11 @@ import LandingPage from "./LandingPage/LandingPage"
 */
 class App extends React.Component {
   render() {
-    return <LandingPage />;
+    return (
+      <Router>
+        <LandingPage />
+      </Router>
+    );
   }
 }
 

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Route } from "react-router-dom";
+import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import styled from "styled-components";
 import TicketList from "./TicketList";
 import TicketForm from "./TicketForm";
@@ -55,6 +55,7 @@ export default class Dashboard extends Component {
         <Route path="/assigned-tickets" component={TicketList} />
         <Route path="/new-ticket" component={TicketForm} />
         <Route path="/view-ticket" component={ViewTicket} />
+        <Router/>
       </Container>
     );
   }

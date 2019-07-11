@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-
 const Container = styled.div`
   display: flex;
   width: 100%;
@@ -9,12 +8,48 @@ const Container = styled.div`
 `;
 
 export default class LogIn extends Component {
-  render() {
-    return( 
-        <Container>
-        <h1>Log In!</h1>
-        </Container>
-    );
+  state = {
+    credentials: {
+      username: "",
+      password: ""
+    }
+  };
 
+  handleChange = e => {
+    this.setState({
+      credentials: {
+        ...this.state.credentials,
+        [e.target.name]: e.target.value
+      }
+    });
+  };
+
+  handleLogin = e => {
+    
+    this.props.history.push("/dashboard")
+  };
+
+  render() {
+    return (
+      <Container>
+        <div>
+          <form onSubmit={this.handleLogin}>
+            <input
+              type="text"
+              name="username"
+              value={this.state.credentials.username}
+              onChange={this.handleChange}
+            />
+            <input
+              type="password"
+              name="password"
+              value={this.state.credentials.password}
+              onChange={this.handleChange}
+            />
+            <button>Log in</button>
+          </form>
+        </div>
+      </Container>
+    );
   }
 }
