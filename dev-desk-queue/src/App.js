@@ -1,5 +1,5 @@
 import React from "react";
-import Dashboard from "./components/Dashboard";
+import LandingPage from "./LandingPage/LandingPage"
 
 /*
   Landing Page
@@ -8,7 +8,7 @@ import Dashboard from "./components/Dashboard";
 */
 class App extends React.Component {
   render() {
-    return <Dashboard />;
+    return <LandingPage />;
   }
 }
 

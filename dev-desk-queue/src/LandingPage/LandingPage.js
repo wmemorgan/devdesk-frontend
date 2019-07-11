@@ -1,14 +1,15 @@
 import React, { Component } from "react";
-import { Link, Route } from "react-router-dom";
 import styled from "styled-components";
-import TicketList from "./TicketList";
-import TicketForm from "./TicketForm";
-import ViewTicket from "./ViewTicket";
+import { Link, Route } from "react-router-dom";
+import LogIn from "../components/LogIn";
+import SignUp from "../components/SignUp";
+import Dashboard from "../components/Dashboard";
 
 const Container = styled.div`
   display: flex;
   width: 100%;
   height: 100vh;
+  flex-direction: column;
 `;
 
 const NavContainer = styled.div`
@@ -36,26 +37,26 @@ const NavBar = styled.nav`
   width: 500px;
 `;
 
-export default class Dashboard extends Component {
+
+export default class Ticket extends Component {
   render() {
-    return (
-      <Container>
+    return( 
+        <Container>
         <NavContainer>
           <LogoContainer>
             <p>DevDesk_Q</p>
           </LogoContainer>
           <NavBar>
-            <Link to="tickets">View All Tickets</Link>
-            <Link to="assigned-tickets">View Assigned Tickets</Link>
-            <Link to="new-ticket">Create New Ticket</Link>
-            <Link to="view-ticket">Logout</Link>
+            <Link to="login">Log In</Link>
+            <Link to="signup">Sign Up</Link>
+            <Link to="dashboard">Dashboard</Link>
           </NavBar>
         </NavContainer>
-        <Route path="/tickets" component={TicketList} />
-        <Route path="/assigned-tickets" component={TicketList} />
-        <Route path="/new-ticket" component={TicketForm} />
-        <Route path="/view-ticket" component={ViewTicket} />
-      </Container>
+        <Route path="/login" component={LogIn} />
+        <Route path="/signup" component={SignUp} />
+        <Route path="/dashboard" component={Dashboard} />
+        </Container>
     );
+
   }
 }
