@@ -43,10 +43,10 @@ class Body extends Component {
         </LinkWrapper>
 
         <Route path="/" exact component={Home} />
-        <Route path="/about" exact component={Feature1} />
-        <Route path="/contact/" component={Feature2} />
-        <Route path="/resume/" component={Feature3} />
-        <Route path="/projects/" component={Feature4} />
+        <Route path="/Feature1" exact component={Feature1} />
+        <Route path="/Feature2/" component={Feature2} />
+        <Route path="/Feature3/" component={Feature3} />
+        <Route path="/Feature4/" component={Feature4} />
       </div>
     );
   }
