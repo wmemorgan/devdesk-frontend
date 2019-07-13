@@ -7,9 +7,8 @@ const Container = styled.div`
   height: 100vh;
 `;
 
-export default class LogIn extends Component {
+export default class Register extends Component {
   //State
-
   state = {
     credentials: {
       username: "",
@@ -17,9 +16,13 @@ export default class LogIn extends Component {
     }
   };
 
-//Axios calls
-
-
+//Axios Calls
+//   addUser = event => {
+//     axios
+//       .post("https://devdeskqueue-01.herokuapp.com/api/register", this.state.user)
+//       .then(res => console.log(res))
+//       .catch(err => console.log(err));
+//   }
 
 //Handlers 
   handleChange = e => {
@@ -32,6 +35,7 @@ export default class LogIn extends Component {
   };
 
   handleLogin = e => {
+    
     this.props.history.push("/dashboard")
   };
 
@@ -52,7 +56,7 @@ export default class LogIn extends Component {
               value={this.state.credentials.password}
               onChange={this.handleChange}
             />
-            <button>Log in</button>
+            <button onClick={this.addFriend}>Register</button>
           </form>
         </div>
       </Container>

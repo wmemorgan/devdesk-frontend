@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import LogIn from "../components/LogIn";
-import SignUp from "../components/SignUp";
+import Register from "../components/Register";
 import Dashboard from "../components/Dashboard";
 
 const Container = styled.div`
@@ -45,13 +45,12 @@ export default class Ticket extends Component {
           </LogoContainer>
           <NavBar>
             <Link to="login">Log In</Link>
-            <Link to="signup">Sign Up</Link>
+            <Link to="register">Register</Link>
           </NavBar>
         </NavContainer>
           <Route path="/login" component={LogIn} />
-          <Route path="/signup" component={SignUp} />
+          <Route path="/register" component={Register} />
           <Route path="/dashboard" component={Dashboard} />
-         
       </Container>
     );
   }
