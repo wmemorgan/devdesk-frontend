@@ -132,6 +132,15 @@ html {
   font-size: 62.5%;
 }
 
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: #454f4f;
+}
+
+nothing {
+  color: #658151;
+}
+
 * {
   box-sizing: border-box;
 }
