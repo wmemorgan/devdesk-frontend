@@ -1,26 +1,25 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import styled from "styled-components";
-import TicketList from "./TicketList";
-import TicketForm from "./TicketForm";
-import ViewTicket from "./ViewTicket";
+import { BrowserRouter as Router, Link, Route } from "react-router-dom";
+import LogIn from "../components/LogIn";
+import Register from "../components/Register";
+import Dashboard from "../components/Dashboard";
 
 const Container = styled.div`
   display: flex;
   width: 100%;
   height: 100vh;
+  flex-direction: column;
+  border: 1px solid black;
 `;
 
 const NavContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   width: 100%;
   height: fit-content;
-
   padding: 10px 20px;
-
   border: 1px solid black;
 `;
 
@@ -36,7 +35,7 @@ const NavBar = styled.nav`
   width: 500px;
 `;
 
-export default class Dashboard extends Component {
+export default class Ticket extends Component {
   render() {
     return (
       <Container>
@@ -45,17 +44,13 @@ export default class Dashboard extends Component {
             <p>DevDesk_Q</p>
           </LogoContainer>
           <NavBar>
-            <Link to="tickets">View All Tickets</Link>
-            <Link to="assigned-tickets">View Assigned Tickets</Link>
-            <Link to="new-ticket">Create New Ticket</Link>
-            <Link to="view-ticket">Logout</Link>
+            <Link to="login">Log In</Link>
+            <Link to="register">Register</Link>
           </NavBar>
         </NavContainer>
-        <Route path="/tickets" component={TicketList} />
-        <Route path="/assigned-tickets" component={TicketList} />
-        <Route path="/new-ticket" component={TicketForm} />
-        <Route path="/view-ticket" component={ViewTicket} />
-        <Router/>
+          <Route path="/login" component={LogIn} />
+          <Route path="/register" component={Register} />
+          <Route path="/dashboard" component={Dashboard} />
       </Container>
     );
   }
