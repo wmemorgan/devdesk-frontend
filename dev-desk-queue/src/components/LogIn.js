@@ -10,7 +10,6 @@ const Container = styled.div`
 
 export default class LogIn extends Component {
   //State
-
   state = {
     email: "",
     password: ""
