@@ -11,20 +11,29 @@ const Container = styled.div`
 export default class Register extends Component {
   //State
   state = {
-    first_name: "",
-    last_name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
   };
 
   // Axios Calls
   addUser = event => {
-    axios.post("https://api-devdesk.herokuapp.com/api/register", {
-      first_name: "",
-      last_name: "",
-      email: "",
-      password: ""
-    });
+    const user = {
+      first_name: this.state.firstName,
+      last_name: this.state.lastName,
+      email: this.state.email,
+      password: this.state.password,
+    };
+    console.log(user)
+    axios
+      .post("https://api-devdesk.herokuapp.com/api/register", JSON.stringify(user))
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   };
 
   //Handlers
@@ -47,15 +56,15 @@ export default class Register extends Component {
             <input
               placeholder="First Name"
               type="text"
-              name="firstname"
-              value={this.state.first_name}
+              name="firstName"
+              value={this.state.firstName}
               onChange={this.handleChange}
             />
             <input
               placeholder="Last Name"
               type="text"
-              name="lastname"
-              value={this.state.last_name}
+              name="lastName"
+              value={this.state.lastName}
               onChange={this.handleChange}
             />
             <input

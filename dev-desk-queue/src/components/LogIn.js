@@ -12,37 +12,44 @@ export default class LogIn extends Component {
   //State
 
   state = {
-    credentials: {
-      username: "",
-      password: ""
-    }
+    email: "",
+    password: ""
   };
 
-  
+  //Axios calls
+  logIn = event => {
+    const user = {
+      email: this.state.email,
+      password: this.state.password,
+    };
 
-//Axios calls
+    axios
+      .post("https://api-devdesk.herokuapp.com/api/login", JSON.stringify(user))
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  };
 
-
-
-//Handlers 
+  //Handlers
   handleChange = e => {
     this.setState({
-      credentials: {
-        ...this.state.credentials,
-        [e.target.name]: e.target.value
-      }
+      ...this.state.user,
+      [e.target.name]: e.target.value
     });
   };
 
   handleLogin = e => {
-    this.props.history.push("/dashboard")
+    this.props.history.push("/dashboard");
   };
 
   //Log Out
-//   const logout = () => {
-//     localStorage.removeItem("access_token");
-//     localStorage.removeItem("expire_at");
-// }
+  //   const logout = () => {
+  //     localStorage.removeItem("access_token");
+  //     localStorage.removeItem("expire_at");
+  // }
 
   render() {
     return (
@@ -50,18 +57,20 @@ export default class LogIn extends Component {
         <div>
           <form onSubmit={this.handleLogin}>
             <input
+              placeholder="Email"
               type="text"
-              name="username"
-              value={this.state.credentials.username}
+              name="email"
+              value={this.state.email}
               onChange={this.handleChange}
             />
             <input
+              placeholder="Password"
               type="password"
               name="password"
-              value={this.state.credentials.password}
+              value={this.state.password}
               onChange={this.handleChange}
             />
-            <button>Log in</button>
+            <button onClick={this.logIn}>Log in</button>
           </form>
         </div>
       </Container>
