@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 const Container = styled.div`
   display: flex;
@@ -16,6 +17,8 @@ export default class LogIn extends Component {
       password: ""
     }
   };
+
+  
 
 //Axios calls
 
@@ -34,6 +37,12 @@ export default class LogIn extends Component {
   handleLogin = e => {
     this.props.history.push("/dashboard")
   };
+
+  //Log Out
+//   const logout = () => {
+//     localStorage.removeItem("access_token");
+//     localStorage.removeItem("expire_at");
+// }
 
   render() {
     return (

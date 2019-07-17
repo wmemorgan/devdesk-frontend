@@ -2,6 +2,7 @@ import React from "react";
 import LandingPage from "./LandingPage/LandingPage";
 import { BrowserRouter as Router } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
+import axios from "axios";
 
 /*
   Landing Page
@@ -9,10 +10,12 @@ import Dashboard from "./components/Dashboard";
   Will Route to Dashboard after Login
 */
 class App extends React.Component {
-//I NEED TO SET UP GLOBAL STATE TO STORE TOKEN.
 
+state = {
+  
+};
 
-  //Axios Calls
+  // Axios Calls
 // componentDidMount() {
 //   this.register();
 //   this.login();

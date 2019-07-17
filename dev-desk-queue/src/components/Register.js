@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 const Container = styled.div`
   display: flex;
@@ -10,33 +11,32 @@ const Container = styled.div`
 export default class Register extends Component {
   //State
   state = {
-    credentials: {
-      username: "",
-      password: ""
-    }
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
   };
 
-//Axios Calls
-//   addUser = event => {
-//     axios
-//       .post("https://devdeskqueue-01.herokuapp.com/api/register", this.state.user)
-//       .then(res => console.log(res))
-//       .catch(err => console.log(err));
-//   }
+  // Axios Calls
+  addUser = event => {
+    axios.post("https://api-devdesk.herokuapp.com/api/register", {
+      first_name: "",
+      last_name: "",
+      email: "",
+      password: ""
+    });
+  };
 
-//Handlers 
+  //Handlers
   handleChange = e => {
     this.setState({
-      credentials: {
-        ...this.state.credentials,
-        [e.target.name]: e.target.value
-      }
+      ...this.state,
+      [e.target.name]: e.target.value
     });
   };
 
   handleLogin = e => {
-    
-    this.props.history.push("/dashboard")
+    this.props.history.push("/dashboard");
   };
 
   render() {
@@ -45,18 +45,34 @@ export default class Register extends Component {
         <div>
           <form onSubmit={this.handleLogin}>
             <input
+              placeholder="First Name"
               type="text"
-              name="username"
-              value={this.state.credentials.username}
+              name="firstname"
+              value={this.state.first_name}
               onChange={this.handleChange}
             />
             <input
-              type="password"
-              name="password"
-              value={this.state.credentials.password}
+              placeholder="Last Name"
+              type="text"
+              name="lastname"
+              value={this.state.last_name}
               onChange={this.handleChange}
             />
-            <button onClick={this.addFriend}>Register</button>
+            <input
+              placeholder="Email"
+              type="text"
+              name="email"
+              value={this.state.email}
+              onChange={this.handleChange}
+            />
+            <input
+              placeholder="Password"
+              type="password"
+              name="password"
+              value={this.state.password}
+              onChange={this.handleChange}
+            />
+            <button onClick={this.addUser}>Register</button>
           </form>
         </div>
       </Container>
