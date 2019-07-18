@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import Auth from "../LandingPage/LandingPage";
 
 const Container = styled.div`
   display: flex;
@@ -20,7 +19,7 @@ export default class LogIn extends Component {
   logIn = event => {
     const user = {
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
     };
 
     axios
@@ -42,10 +41,10 @@ export default class LogIn extends Component {
   };
 
   handleLogin = e => {
-    Auth.authenticate(() => {
-      this.setState({ redirectToReferrer: true });
-    });
+    this.props.history.push("/dashboard");
   };
+
+
 
   render() {
     return (

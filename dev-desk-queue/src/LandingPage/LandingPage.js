@@ -42,7 +42,7 @@ const NavBar = styled.nav`
 
 //Authentication 
 const Auth = {
-  isAuthenticated: false,
+  isAuthenticated: true,
   authenticate(cb) {
     this.isAuthenticated = true;
     setTimeout(cb, 100); // fake async
@@ -87,6 +87,7 @@ export default class LandingPage extends Component {
             <Link to="dashboard">Dashboard</Link>
           </NavBar>
         </NavContainer>
+        <Route path="/" />
         <Route path="/login" component={LogIn} />
         <Route path="/register" component={Register} />
         <PrivateRoute path="/dashboard" component={Dashboard} />
