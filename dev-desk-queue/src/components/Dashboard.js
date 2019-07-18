@@ -4,7 +4,7 @@ import styled from "styled-components";
 import TicketList from "./TicketList";
 import TicketForm from "./TicketForm";
 import ViewTicket from "./ViewTicket";
-import RequireAuthentication from "./AuthenticationHOC";
+// import RequireAuthentication from "./Authentication";
 
 const Container = styled.div`
   display: flex;
@@ -61,4 +61,5 @@ export class Dashboard extends Component {
     );
   }
 }
-export default RequireAuthentication(Dashboard);
+// export default RequireAuthentication(Dashboard);
+export default Dashboard;

@@ -4,8 +4,11 @@ import { Link } from "react-router-dom";
 export function RequireAuthentication(Component) {
   return class AuthenticatedComponent extends React.Component {
     isAuthenticated() {
+      const token = localStorage.token;
+      
       return this.props.isAuthenticated;
     }
+    
     render() {
       const loginErrorMessage = (
         <div>
