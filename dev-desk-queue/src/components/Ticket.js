@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import { Container, Status } from "../styled-components/TicketStyles";
 import { loggedInUser } from "../data";
 
@@ -22,38 +23,34 @@ class Ticket extends React.Component {
   };
 
   render() {
-    const { assigned } = this.state;
-    const {
-      id,
-      title,
-      created_at,
-      category_id,
-      opened_by,
-      assigned_to,
-      closed
-    } = this.props.ticket;
+    const { ticket } = this.props;
     const { users, categories } = this.props;
-    console.log("TICKET RENDERING", category_id, categories[category_id]);
+    console.log("TICKET", ticket, ticket.opened_by);
+    const created_at = moment(ticket.created_at.split("T")[0]).format(
+      "M/DD/YYYY"
+    );
     return (
-      <Container to={`/tickets/${id}`}>
-        <div>{id}</div>
-        <div>{title}</div>
+      <Container to={`/tickets/${ticket.id}`}>
+        <div>{ticket.id}</div>
+        <div>{ticket.title}</div>
         <div>{created_at}</div>
-        <div>{categories[category_id - 1].name}</div>
-        <div>{`${users[opened_by].last_name}, ${
-          users[opened_by].first_name
-        }`}</div>
+        <div>{categories[ticket.category_id - 1].name}</div>
+        <div>{`${users.find(user => user.id === ticket.opened_by).last_name}, 
+          ${users.find(user => user.id === ticket.opened_by).first_name}
+        `}</div>
         <div>
-          {assigned_to
-            ? `${users[assigned_to].last_name}, ${
-                users[assigned_to].first_name
+          {ticket.assigned_to
+            ? `${users[ticket.assigned_to].last_name}, ${
+                users[ticket.assigned_to].first_name
               }`
             : ""}
         </div>
-        <Status closed={closed}>{closed ? "Resolved" : "Open"}</Status>
-        {!assigned_to && !closed && (
+        <Status closed={ticket.closed}>
+          {ticket.closed ? "Resolved" : "Open"}
+        </Status>
+        {!ticket.assigned_to && !ticket.closed && (
           <button onClick={this.handleClick}>
-            {assigned ? "REMOVE" : "ASSIGN"}
+            {this.state.assigned ? "REMOVE" : "ASSIGN"}
           </button>
         )}
       </Container>

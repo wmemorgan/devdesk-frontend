@@ -47,8 +47,8 @@ class ViewTicket extends Component {
           <UserInfo>
             <p>
               <span className="user-name">{`${
-                users[opened_by - 1].first_name
-              }, ${users[opened_by - 1].last_name}`}</span>
+                users.find(user => user.id === opened_by).first_name
+              }, ${users.find(user => user.id === opened_by).last_name}`}</span>
               <span className="date">{` @ ${created_at}`}</span>
             </p>
           </UserInfo>

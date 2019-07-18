@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import { Link, NavLink, Route } from "react-router-dom";
 import {
   Container,
@@ -10,7 +11,6 @@ import {
 import TicketList from "./TicketList";
 import TicketForm from "./TicketForm";
 import ViewTicket from "./ViewTicket/ViewTicket";
-import axios from "axios";
 
 const api = `https://api-devdesk.herokuapp.com/api`;
 
@@ -19,7 +19,8 @@ class Dashboard extends Component {
     tickets: [],
     users: [],
     categories: [],
-    menuOpen: false
+    menuOpen: false,
+    activeUserID: 12
   };
 
   componentDidMount() {
@@ -34,10 +35,12 @@ class Dashboard extends Component {
           users: res2.data,
           categories: res3.data
         });
+        
       })
       .catch(err => {
         console.log(err);
       });
+
   }
 
   toggleMenu = (e, open) => {
@@ -47,7 +50,8 @@ class Dashboard extends Component {
   };
 
   render() {
-    const { tickets, users, categories, menuOpen } = this.state;
+    const { tickets, users, categories, menuOpen, activeUserID } = this.state;
+    console.log(this.state);
     return (
       <Container>
         <TopBar>
@@ -90,6 +94,7 @@ class Dashboard extends Component {
               tickets={tickets}
               users={users}
               categories={categories}
+              activeUserID={activeUserID}
             />
           )}
         />
@@ -101,13 +106,18 @@ class Dashboard extends Component {
               tickets={tickets}
               users={users}
               categories={categories}
+              activeUserID={activeUserID}
             />
           )}
         />
         <Route
           path="/new-ticket"
-          component={TicketForm}
-          categories={categories}
+          render={props => (
+            <TicketForm 
+              {...props}
+              categories={categories}
+              activeUserID={activeUserID}/>
+          )}
         />
         <Route
           path="/tickets/:id"
@@ -116,9 +126,10 @@ class Dashboard extends Component {
             return (
               <ViewTicket
                 {...props}
-                ticket={tickets[id]}
+                ticket={tickets.find(ticket => ticket.id === id)}
                 users={users}
                 categories={categories}
+                activeUserID={activeUserID}
               />
             );
           }}

@@ -13,6 +13,7 @@ class TicketList extends Component {
 
   render() {
     const { tickets, users, categories } = this.props;
+    console.log('TICKETLIST', users);
     return (
       <Container>
         <TicketHeader sortBy={this.sortBy} />

@@ -5,6 +5,8 @@ import { loggedInUser } from "../data";
 import axios from "axios";
 import moment from "moment";
 
+const api = `https://api-devdesk.herokuapp.com/api`;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -135,8 +137,19 @@ class TicketForm extends Component {
       title: "",
       description: "",
       categoryError: ""
-    }
+    },
+    categories: [],
+    activeUserID: this.props.activeUserID
   };
+
+  componentDidMount() {
+    axios.get(`${api}/categories`)
+    .then(res => {
+      this.setState({
+        categories: res.data
+      })
+    })
+  }
 
   handleChange = e => {
     this.setState({
@@ -153,10 +166,11 @@ class TicketForm extends Component {
     // axios call to create new ticket
     axios
       .post(`https://api-devdesk.herokuapp.com/api/tickets`, {
-        title: "Test Title 1",
-        description: "Test Description 1",
-        category_id: 2,
-        opened_by: 2
+        title: this.state.ticket.title,
+        description: this.state.ticket.description,
+        category_id: this.state.ticket.category,
+        opened_by: this.state.activeUserID,
+        comment: this.state.ticket.snippet
       })
       .then(res => {
         console.log(res);
@@ -164,30 +178,10 @@ class TicketForm extends Component {
       .catch(err => {
         console.log(err);
       });
-
-    tickets.push({
-      id: tickets.length,
-      title: this.state.ticket.title,
-      description: this.state.ticket.description,
-      category: this.state.ticket.category,
-      comments: [this.state.ticket.snippet],
-      openedBy: {
-        ...loggedInUser
-      },
-      createdAt: moment().format("M/D/YYYY"),
-      assignedTo: null,
-      updatedAt: "",
-      updatedBy: null,
-      closed: false,
-      completedAt: ""
-    });
-
-    console.log(tickets);
-
-    this.props.history.push(`/tickets/${tickets.length - 1}`);
   };
 
   render() {
+    console.log('DO WE HAVE AN ACTIVE USER ID',this.props.activeUserID)
     return (
       <Container>
         <FormHeader>
@@ -235,7 +229,10 @@ class TicketForm extends Component {
               <option style={{ color: "grey" }} value="">
                 Choose a Category
               </option>
-              <option value="HTML">HTML</option>
+              {this.state.categories.map(category => (
+                <option value={category.id}>{category.name}</option>
+              ))}
+              {/* <option value="HTML">HTML</option>
               <option value="CSS">CSS</option>
               <option value="Javascript">Javascript</option>
               <option value="LESS">LESS</option>
@@ -244,7 +241,7 @@ class TicketForm extends Component {
               <option value="Pre-Processing">Preprocessing</option>
               <option value="React">React</option>
               <option value="Styled Components">Styled-Components</option>
-              <option value="Redux">Redux</option>
+              <option value="Redux">Redux</option> */}
             </select>
           </InputWrapper>
           <ButtonContainer>
