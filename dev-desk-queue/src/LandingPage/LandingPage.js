@@ -9,7 +9,7 @@ import {
 import LogIn from "../components/LogIn";
 import Register from "../components/Register";
 import Dashboard from "../components/Dashboard";
-
+import PrivateRoute from "./PrivateRoute";
 const Container = styled.div`
   display: flex;
   width: 100%;
@@ -55,26 +55,7 @@ export const Auth = {
 };
 
 
-//Creates a private route
-function PrivateRoute({ component: Component, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        Auth.isAuthenticated ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/login",
-              state: { from: props.location }
-            }}
-          />
-        )
-      }
-    />
-  );
-}
+
 
 export default class LandingPage extends Component {
   render() {

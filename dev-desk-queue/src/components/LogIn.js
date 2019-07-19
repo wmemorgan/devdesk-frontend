@@ -27,7 +27,7 @@ export default class LogIn extends Component {
       email: this.state.email,
       password: this.state.password
     };
-
+    event.preventDefault();
     axios
       .post("https://api-devdesk.herokuapp.com/api/login", user)
       .then(function(response) {
@@ -36,8 +36,9 @@ export default class LogIn extends Component {
       .catch(function(error) {
         console.log(error);
       });
+      console.log(user);
   };
-
+  
   //Toggles Authentication when logging in.
   
   loginAuth = event => {
@@ -48,10 +49,10 @@ export default class LogIn extends Component {
 
   //Combines loginAuth and Axios call into one onclick
 
-  combinedLogin = event => {
-   this.logIn();
-   this.loginAuth()
-  };
+  // combinedLogin = event => {
+  //  this.logIn();
+  //  this.loginAuth()
+  // };
 
   //Handlers
   handleChange = e => {
@@ -61,9 +62,9 @@ export default class LogIn extends Component {
     });
   };
 
-  handleLogin = e => {
+  // handleLogin = e => {
     
-  };
+  // };
 
   render() {
     //Redirects to Dashboard once authenticated.
@@ -76,7 +77,7 @@ export default class LogIn extends Component {
     return (
       <Container>
         <div>
-          <form onSubmit={this.handleLogin}>
+          <form onSubmit={this.logIn}>
             <input
               placeholder="Email"
               type="text"
@@ -91,7 +92,7 @@ export default class LogIn extends Component {
               value={this.state.password}
               onChange={this.handleChange}
             />
-            <button onClick={this.combinedLogin}>Log in</button>
+            <button onClick={this.loginAuth}>Log in</button>
           </form>
         </div>
       </Container>
