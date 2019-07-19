@@ -4,12 +4,13 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
-  Redirect
+  Redirect,
+  withRouter
 } from "react-router-dom";
 import LogIn from "../components/LogIn";
 import Register from "../components/Register";
 import Dashboard from "../components/Dashboard";
-import PrivateRoute from "./PrivateRoute";
+
 const Container = styled.div`
   display: flex;
   width: 100%;
@@ -40,8 +41,7 @@ const NavBar = styled.nav`
   width: 500px;
 `;
 
-
-//Authentication 
+//Authentication
 export const Auth = {
   isAuthenticated: false,
   authenticate(cb) {
@@ -54,8 +54,44 @@ export const Auth = {
   }
 };
 
+//Creates a private route
+function PrivateRoute({ component: Component, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        Auth.isAuthenticated ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: props.location }
+            }}
+          />
+        )
+      }
+    />
+  );
+}
 
-
+//Logout component
+const LogOutButton = withRouter(({ history }) =>
+  Auth.isAuthenticated ? (
+    <p>
+      Welcome!{" "}
+      <button
+        onClick={() => {
+          Auth.signout(() => history.push("/"));
+        }}
+      >
+        Sign out
+      </button>
+    </p>
+  ) : (
+    <p>You are not logged in.</p>
+  )
+);
 
 export default class LandingPage extends Component {
   render() {
@@ -66,6 +102,7 @@ export default class LandingPage extends Component {
             <p>DevDesk_Q</p>
           </LogoContainer>
           <NavBar>
+            <LogOutButton />
             <Link to="login">Log In</Link>
             <Link to="register">Register</Link>
             <Link to="dashboard">Dashboard</Link>

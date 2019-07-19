@@ -25,7 +25,8 @@ export default class LogIn extends Component {
   logIn = event => {
     const user = {
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      redirectToReferrer: true
     };
     event.preventDefault();
     axios
@@ -47,12 +48,6 @@ export default class LogIn extends Component {
     });
   };
 
-  //Combines loginAuth and Axios call into one onclick
-
-  // combinedLogin = event => {
-  //  this.logIn();
-  //  this.loginAuth()
-  // };
 
   //Handlers
   handleChange = e => {
@@ -61,10 +56,6 @@ export default class LogIn extends Component {
       [e.target.name]: e.target.value
     });
   };
-
-  // handleLogin = e => {
-    
-  // };
 
   render() {
     //Redirects to Dashboard once authenticated.

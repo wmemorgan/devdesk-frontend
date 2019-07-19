@@ -61,5 +61,5 @@ export class Dashboard extends Component {
     );
   }
 }
-// export default RequireAuthentication(Dashboard);
+
 export default Dashboard;
