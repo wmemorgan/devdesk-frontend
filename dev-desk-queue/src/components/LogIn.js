@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
+import {Auth} from "../LandingPage/LandingPage"
+
 
 const Container = styled.div`
   display: flex;
@@ -8,18 +11,21 @@ const Container = styled.div`
   height: 100vh;
 `;
 
+
+
 export default class LogIn extends Component {
   //State
   state = {
     email: "",
-    password: ""
+    password: "",
+    redirectToReferrer: false
   };
 
   //Axios calls
   logIn = event => {
     const user = {
       email: this.state.email,
-      password: this.state.password,
+      password: this.state.password
     };
 
     axios
@@ -32,6 +38,21 @@ export default class LogIn extends Component {
       });
   };
 
+  //Toggles Authentication when logging in.
+  
+  loginAuth = event => {
+    Auth.authenticate(() => {
+      this.setState({ redirectToReferrer: true });
+    });
+  };
+
+  //Combines loginAuth and Axios call into one onclick
+
+  combinedLogin = event => {
+   this.logIn();
+   this.loginAuth()
+  };
+
   //Handlers
   handleChange = e => {
     this.setState({
@@ -41,12 +62,17 @@ export default class LogIn extends Component {
   };
 
   handleLogin = e => {
-    this.props.history.push("/dashboard");
+    
   };
 
-
-
   render() {
+    //Redirects to Dashboard once authenticated.
+    const { redirectToReferrer } = this.state;
+
+    if (redirectToReferrer === true) {
+      return <Redirect to="/Dashboard" />;
+    }
+
     return (
       <Container>
         <div>
@@ -65,7 +91,7 @@ export default class LogIn extends Component {
               value={this.state.password}
               onChange={this.handleChange}
             />
-            <button onClick={this.logIn}>Log in</button>
+            <button onClick={this.combinedLogin}>Log in</button>
           </form>
         </div>
       </Container>

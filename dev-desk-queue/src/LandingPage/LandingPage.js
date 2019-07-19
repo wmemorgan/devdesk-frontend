@@ -40,9 +40,10 @@ const NavBar = styled.nav`
   width: 500px;
 `;
 
+
 //Authentication 
-const Auth = {
-  isAuthenticated: true,
+export const Auth = {
+  isAuthenticated: false,
   authenticate(cb) {
     this.isAuthenticated = true;
     setTimeout(cb, 100); // fake async
@@ -53,6 +54,8 @@ const Auth = {
   }
 };
 
+
+//Creates a private route
 function PrivateRoute({ component: Component, ...rest }) {
   return (
     <Route
