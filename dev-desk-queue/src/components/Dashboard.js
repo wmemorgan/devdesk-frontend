@@ -4,6 +4,7 @@ import styled from "styled-components";
 import TicketList from "./TicketList";
 import TicketForm from "./TicketForm";
 import ViewTicket from "./ViewTicket";
+// import RequireAuthentication from "./Authentication";
 
 const Container = styled.div`
   display: flex;
@@ -36,7 +37,7 @@ const NavBar = styled.nav`
   width: 500px;
 `;
 
-export default class Dashboard extends Component {
+export class Dashboard extends Component {
   render() {
     return (
       <Container>
@@ -60,3 +61,5 @@ export default class Dashboard extends Component {
     );
   }
 }
+
+export default Dashboard;

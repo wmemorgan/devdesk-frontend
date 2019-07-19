@@ -27,7 +27,7 @@ export default class Register extends Component {
     };
     console.log(user)
     axios
-      .post("https://api-devdesk.herokuapp.com/api/register", JSON.stringify(user))
+      .post("https://api-devdesk.herokuapp.com/api/register", user)
       .then(function(response) {
         console.log(response);
       })
