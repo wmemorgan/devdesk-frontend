@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { BrowserRouter as Router, Link, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  withRouter
+} from "react-router-dom";
 import LogIn from "../components/LogIn";
 import Register from "../components/Register";
 import Dashboard from "../components/Dashboard";
@@ -35,7 +41,59 @@ const NavBar = styled.nav`
   width: 500px;
 `;
 
-export default class Ticket extends Component {
+//Authentication
+export const Auth = {
+  isAuthenticated: false,
+  authenticate(cb) {
+    this.isAuthenticated = true;
+    setTimeout(cb, 100); // fake async
+  },
+  signout(cb) {
+    this.isAuthenticated = false;
+    setTimeout(cb, 100);
+  }
+};
+
+//Creates a private route
+function PrivateRoute({ component: Component, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        Auth.isAuthenticated ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: props.location }
+            }}
+          />
+        )
+      }
+    />
+  );
+}
+
+//Logout component
+const LogOutButton = withRouter(({ history }) =>
+  Auth.isAuthenticated ? (
+    <p>
+      Welcome!{" "}
+      <button
+        onClick={() => {
+          Auth.signout(() => history.push("/"));
+        }}
+      >
+        Sign out
+      </button>
+    </p>
+  ) : (
+    <p>You are not logged in.</p>
+  )
+);
+
+export default class LandingPage extends Component {
   render() {
     return (
       <Container>
@@ -44,13 +102,16 @@ export default class Ticket extends Component {
             <p>DevDesk_Q</p>
           </LogoContainer>
           <NavBar>
+            <LogOutButton />
             <Link to="login">Log In</Link>
             <Link to="register">Register</Link>
+            <Link to="dashboard">Dashboard</Link>
           </NavBar>
         </NavContainer>
-          <Route path="/login" component={LogIn} />
-          <Route path="/register" component={Register} />
-          <Route path="/dashboard" component={Dashboard} />
+        <Route path="/" />
+        <Route path="/login" component={LogIn} />
+        <Route path="/register" component={Register} />
+        <PrivateRoute path="/dashboard" component={Dashboard} />
       </Container>
     );
   }

@@ -9,8 +9,14 @@ import {
   MenuIconWrapper
 } from "../styled-components/Dashboard_Styles";
 import TicketList from "./TicketList";
+<<<<<<< HEAD
 import TicketForm from "./TicketForm/TicketForm";
 import ViewTicket from "./Ticket/Ticket";
+=======
+import TicketForm from "./TicketForm";
+import ViewTicket from "./ViewTicket";
+// import RequireAuthentication from "./Authentication";
+>>>>>>> 60c1b29d2d2ff34aa4ae3b86527cdf416caf98d3
 
 const api = `https://api-devdesk.herokuapp.com/api`;
 
@@ -62,6 +68,10 @@ class Dashboard extends Component {
     });
   };
 
+<<<<<<< HEAD
+=======
+export class Dashboard extends Component {
+>>>>>>> 60c1b29d2d2ff34aa4ae3b86527cdf416caf98d3
   render() {
     const {
       tickets,
@@ -159,6 +169,7 @@ class Dashboard extends Component {
     );
   }
 }
+<<<<<<< HEAD
 /*********************************************************************************
  *                                UTILITY FUNCTION                                *
  **********************************************************************************/
@@ -185,3 +196,7 @@ function compareValues(key, order) {
 }
 
 export default Dashboard;
+=======
+
+export default Dashboard;
+>>>>>>> 60c1b29d2d2ff34aa4ae3b86527cdf416caf98d3
