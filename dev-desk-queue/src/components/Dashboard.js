@@ -92,11 +92,11 @@ class Dashboard extends Component {
                 OPEN NEW TICKET
               </NavLink>
 
-              <LogOutButton />
-              {/* <NavLink to="/" activeStyle={{ color: "#dddddd" }}>
+             
+              <NavLink to="/" activeStyle={{ color: "#dddddd" }}>
                 LOGOUT
               </NavLink>
-              I entered in the logout button here to save you some time.  If you want to change it back feel free to just use the logic of my button. */}
+              
             </Nav>
             <MenuIconWrapper>
               <img
