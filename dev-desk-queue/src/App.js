@@ -1,13 +1,12 @@
 import React from "react";
-import LandingPage from "./LandingPage/LandingPage";
 import { BrowserRouter as Router } from "react-router-dom";
-import Dashboard from "./components/Dashboard";
+import LandingPage from "./LandingPage/LandingPage";
 
 class App extends React.Component {
   render() {
     return (
       <Router>
-        <Dashboard />
+        <LandingPage />
       </Router>
     );
   }

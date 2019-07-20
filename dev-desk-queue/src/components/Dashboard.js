@@ -11,6 +11,7 @@ import {
 import TicketList from "./TicketList/TicketList";
 import TicketForm from "./TicketForm/TicketForm";
 import ViewTicket from "./Ticket/Ticket";
+import LogOutButton from "../LandingPage/LandingPage"
 
 const api = `https://api-devdesk.herokuapp.com/api`;
 
@@ -90,9 +91,12 @@ class Dashboard extends Component {
               <NavLink to="/new-ticket" activeStyle={{ color: "#dddddd" }}>
                 OPEN NEW TICKET
               </NavLink>
-              <NavLink to="/" activeStyle={{ color: "#dddddd" }}>
+
+              <LogOutButton />
+              {/* <NavLink to="/" activeStyle={{ color: "#dddddd" }}>
                 LOGOUT
               </NavLink>
+              I entered in the logout button here to save you some time.  If you want to change it back feel free to just use the logic of my button. */}
             </Nav>
             <MenuIconWrapper>
               <img
