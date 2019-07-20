@@ -61,7 +61,7 @@ function PrivateRoute({ component: Component, ...rest }) {
       {...rest}
       render={props =>
         Auth.isAuthenticated ? (
-          <Component {...props} />
+          <Component {...props} {...rest} />
         ) : (
           <Redirect
             to={{
@@ -93,7 +93,19 @@ const LogOutButton = withRouter(({ history }) =>
   )
 );
 
+
 export default class LandingPage extends Component {
+  state = {
+    user : {}
+    }
+
+    setActiveUser= (user) => {
+      this.setState({
+        user
+      })
+      console.log(user);
+    }
+
   render() {
     return (
       <Container>
@@ -109,9 +121,9 @@ export default class LandingPage extends Component {
           </NavBar>
         </NavContainer>
         <Route path="/" />
-        <Route path="/login" component={LogIn} />
+        <Route path="/login" render={props => <LogIn {...props} setActiveUser={this.setActiveUser}/>} />
         <Route path="/register" component={Register} />
-        <PrivateRoute path="/dashboard" component={Dashboard} />
+        <PrivateRoute path="/dashboard" component={Dashboard} user={this.state.user} />
       </Container>
     );
   }
