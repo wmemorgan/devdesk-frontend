@@ -34,7 +34,7 @@ state = {
   render() {
     return (
       <Router>
-        <LandingPage />
+        {/* <LandingPage /> */}
         <Dashboard/>
       </Router>
     );
