@@ -51,7 +51,7 @@ class TicketForm extends React.Component {
         comment: this.state.ticket.snippet
       })
       .then(res => {
-        console.log(res);
+        this.props.history.push(`/tickets`)
       })
       .catch(err => {
         console.log(err);
@@ -106,8 +106,8 @@ class TicketForm extends React.Component {
               <option style={{ color: "grey" }} value="">
                 Choose a Category
               </option>
-              {this.state.categories.map(category => (
-                <option value={category.id}>{category.name}</option>
+              {this.state.categories.map((category, i) => (
+                <option key={i} value={category.id}>{category.name}</option>
               ))}
             </select>
           </InputWrapper>

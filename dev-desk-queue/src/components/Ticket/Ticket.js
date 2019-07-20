@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import styled from "styled-components";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { tomorrowNightEighties } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import CommentSection from "./CommentSection";
@@ -57,7 +56,7 @@ class Ticket extends Component {
     const newComment = {
       comment: this.state.reply,
       ticket_id: this.props.ticket.id,
-      opened_by: 12
+      opened_by: 4
     }
 
     axios

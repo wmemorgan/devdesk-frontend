@@ -32,10 +32,6 @@ export const AssignButton = props => {
 		}
 	}
 
-	const status = getStatus();
-	const text = getText();
-	console.log(ticketID, status, text);
-
   return (
     <StyledAssignButton status={getStatus()}>
 			{getText()}

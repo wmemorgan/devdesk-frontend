@@ -8,15 +8,9 @@ import {
   Nav,
   MenuIconWrapper
 } from "../styled-components/Dashboard_Styles";
-import TicketList from "./TicketList";
-<<<<<<< HEAD
+import TicketList from "./TicketList/TicketList";
 import TicketForm from "./TicketForm/TicketForm";
 import ViewTicket from "./Ticket/Ticket";
-=======
-import TicketForm from "./TicketForm";
-import ViewTicket from "./ViewTicket";
-// import RequireAuthentication from "./Authentication";
->>>>>>> 60c1b29d2d2ff34aa4ae3b86527cdf416caf98d3
 
 const api = `https://api-devdesk.herokuapp.com/api`;
 
@@ -30,48 +24,44 @@ class Dashboard extends Component {
     categories: [],
     menuOpen: false,
     activeUser: {
-      id: 12,
+      id: 4,
       first_name: "Dave",
       last_name: "Vazquez",
       email: "dmvaz.li@gmail.com"
     }
   };
 
-  componentDidMount() {
-    Promise.all([
-      axios.get(`${api}/tickets`),
-      axios.get(`${api}/users`),
-      axios.get(`${api}/categories`)
-    ])
-      .then(([res1, res2, res3]) => {
-        this.setState({
-          tickets: res1.data,
-          users: res2.data,
-          categories: res3.data
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
+  // componentDidMount() {
+  //   Promise.all([
+  //     axios.get(`${api}/tickets`),
+  //     axios.get(`${api}/users`),
+  //     axios.get(`${api}/categories`)
+  //   ])
+  //     .then(([res1, res2, res3]) => {
+  //       this.setState({
+  //         tickets: res1.data,
+  //         users: res2.data,
+  //         categories: res3.data
+  //       });
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // }
 
-  sortBy = (filter, order) => {
-    this.setState({
-      ...this.state,
-      tickets: this.state.tickets.sort(compareValues(filter, order))
-    });
-  };
+  // sortBy = (filter, order) => {
+  //   this.setState({
+  //     ...this.state,
+  //     tickets: this.state.tickets.sort(compareValues(filter, order))
+  //   });
+  // };
 
-  toggleMenu = () => {
-    this.setState({
-      menuOpen: !this.state.menuOpen
-    });
-  };
+  // toggleMenu = () => {
+  //   this.setState({
+  //     menuOpen: !this.state.menuOpen
+  //   });
+  // };
 
-<<<<<<< HEAD
-=======
-export class Dashboard extends Component {
->>>>>>> 60c1b29d2d2ff34aa4ae3b86527cdf416caf98d3
   render() {
     const {
       tickets,
@@ -119,11 +109,11 @@ export class Dashboard extends Component {
           render={props => (
             <TicketList
               {...props}
-              tickets={tickets}
-              users={users}
-              categories={categories}
+              // tickets={tickets}
+              // users={users}
+              // categories={categories}
               activeUser={activeUser}
-              sortBy={this.sortBy}
+              // sortBy={this.sortBy}
             />
           )}
         />
@@ -132,11 +122,11 @@ export class Dashboard extends Component {
           render={props => (
             <TicketList
               {...props}
-              tickets={tickets}
-              users={users}
-              categories={categories}
+              // tickets={tickets}
+              // users={users}
+              // categories={categories}
               activeUser={activeUser}
-              sortBy={this.sortBy}
+              // sortBy={this.sortBy}
             />
           )}
         />
@@ -169,7 +159,6 @@ export class Dashboard extends Component {
     );
   }
 }
-<<<<<<< HEAD
 /*********************************************************************************
  *                                UTILITY FUNCTION                                *
  **********************************************************************************/
@@ -196,7 +185,3 @@ function compareValues(key, order) {
 }
 
 export default Dashboard;
-=======
-
-export default Dashboard;
->>>>>>> 60c1b29d2d2ff34aa4ae3b86527cdf416caf98d3

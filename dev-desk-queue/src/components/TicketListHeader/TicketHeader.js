@@ -72,7 +72,6 @@ class TicketHeader extends React.Component {
 
   render() {
     const { headers } = this.state;
-    console.log("TICKET HEADER", this.props);
     return (
       <Container>
         {headers.map((header, i) => (

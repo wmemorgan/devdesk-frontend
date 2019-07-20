@@ -4,8 +4,8 @@ import {
   Container,
   Status,
 } from "../../styled-components/TicketRow_Styles";
-import { OpenedBy } from "../Ticket/OpenedBy";
-import { CreatedAt } from "../Ticket/CreatedAt";
+import { OpenedBy } from "./OpenedBy";
+import { CreatedAt } from "./CreatedAt";
 import { AssignedTo } from "./AssignedTo";
 import { AssignButton } from "../Ticket/AssignButton";
 
