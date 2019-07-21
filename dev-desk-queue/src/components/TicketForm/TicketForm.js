@@ -62,10 +62,10 @@ class TicketForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    let ticketID;
-    const { ticket } = this.state;
-
     if (this.formValidated()) {
+      let ticketID;
+      const { ticket } = this.state;
+
       axios
         .post(`https://api-devdesk.herokuapp.com/api/tickets`, {
           title: ticket.title,

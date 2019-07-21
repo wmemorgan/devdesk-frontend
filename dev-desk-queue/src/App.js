@@ -99,7 +99,12 @@ class App extends React.Component {
             <LogIn {...props} setActiveUser={this.setActiveUser} />
           )}
         />
-        <Route path="/register" component={Register} />
+        <Route 
+          path="/register" 
+          render={props => (
+            <Register {...props} setActiveUser={this.setActiveUser} />
+          )} 
+        />
         <PrivateRoute
           exact path="/tickets"
           component={TicketList}
