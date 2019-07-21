@@ -11,6 +11,7 @@ import {
 import TicketList from "./TicketList/TicketList";
 import TicketForm from "./TicketForm/TicketForm";
 import Ticket from "./Ticket/Ticket";
+import LogOutButton from "../LandingPage/LandingPage"
 
 const api = `https://api-devdesk.herokuapp.com/api`;
 
@@ -64,9 +65,12 @@ class Dashboard extends Component {
               <NavLink to="/new-ticket" activeStyle={{ color: "#dddddd" }}>
                 OPEN NEW TICKET
               </NavLink>
+
+             
               <NavLink to="/" activeStyle={{ color: "#dddddd" }}>
                 LOGOUT
               </NavLink>
+              
             </Nav>
             <MenuIconWrapper>
               <img
@@ -126,30 +130,6 @@ class Dashboard extends Component {
       </Container>
     );
   }
-}
-/*********************************************************************************
- *                                UTILITY FUNCTION                                *
- **********************************************************************************/
-function compareValues(key, order) {
-  return function(tick1, tick2) {
-    if (!tick1.hasOwnProperty(key) || !tick2.hasOwnProperty(key)) {
-      return 0;
-    }
-
-    const val1 =
-      typeof tick1[key] === "string" ? tick1[key].toLowerCase() : tick1[key];
-    const val2 =
-      typeof tick2[key] === "string" ? tick2[key].toLowerCase() : tick2[key];
-
-    let comparison = 0;
-    if (val1 > val2) {
-      comparison = 1;
-    } else if (val1 < val2) {
-      comparison = -1;
-    }
-
-    return order === "asc" ? comparison * -1 : comparison;
-  };
 }
 
 export default Dashboard;
