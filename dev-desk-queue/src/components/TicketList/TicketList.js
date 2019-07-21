@@ -12,6 +12,9 @@ const api = `https://api-devdesk.herokuapp.com/api`;
 class TicketList extends React.Component {
   state = {
     tickets: [],
+    filteredTickets: [],
+    statusFilter: "all",
+    totalTicketFilter: "all",
     users: [],
     categories: []
   };
@@ -24,7 +27,9 @@ class TicketList extends React.Component {
     ])
       .then(([res1, res2, res3]) => {
         this.setState({
+          ...this.state,
           tickets: res1.data,
+          filteredTickets: res1.data,
           users: res2.data,
           categories: res3.data
         });
@@ -35,11 +40,40 @@ class TicketList extends React.Component {
   }
 
   sortBy = (filter, order) => {
+    const {filteredTickets} = this.state;
     this.setState({
       ...this.state,
-      tickets: this.state.tickets.sort(compareValues(filter, order))
+      filteredTickets: filteredTickets.sort(compareValues(filter, order))
     });
   };
+
+  filterBy = (e, filter) => {
+    e.persist();
+    const {tickets} = this.state;
+    const {activeUser} = this.props;
+    let {filteredTickets} = this.state;
+    
+    this.setState({
+      ...this.state,
+      [e.target.name]: filter
+    }, () => {
+
+      filteredTickets = this.state.totalTicketFilter === "assigned" 
+        ? tickets.filter(ticket => ticket.assigned_to === activeUser.id)
+        : tickets;
+
+      filteredTickets = this.state.statusFilter === "open" 
+        ? filteredTickets.filter(ticket => !ticket.closed) 
+        : this.state.statusFilter === "resolved"
+        ? filteredTickets.filter(ticket => ticket.closed)
+        : filteredTickets;
+
+      this.setState({
+        ...this.state,
+        filteredTickets: filteredTickets
+      })
+    })
+  }
 
   toggleMenu = () => {
     this.setState({
@@ -48,15 +82,17 @@ class TicketList extends React.Component {
   };
 
   render() {
-    const { tickets, users, categories } = this.state;
+    const { tickets, filteredTickets, users, categories } = this.state;
     const { activeUser } = this.props;
     return (
       <Container>
-
-        <TicketListNav />
-
+        <TicketListNav 
+          totalTickets={tickets.length} 
+          assignedTickets={tickets.filter(ticket => ticket.assigned_to === activeUser.id).length}
+          filterBy={this.filterBy}
+        />
         <TicketHeader sortBy={this.sortBy} />
-        {tickets.map(ticket => (
+        {filteredTickets.map(ticket => (
           <TicketRow
             key={ticket.id}
             ticket={ticket}

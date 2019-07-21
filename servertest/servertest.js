@@ -26,6 +26,14 @@ function getTicket(id) {
     });
 }
 
+const ticket = {
+  title: "test title",
+  description: "test description",
+  category_id: "2",
+  opened_by: "4",
+  comment: "test"
+}
+
 function addTicket(ticket) {
   axios
     .post(`${api}/tickets`, ticket)
@@ -84,6 +92,17 @@ function getAllComments(id) {
     });
 }
 
+// function getAllComments() {
+//   axios
+//     .get(`${api}/tickets/${id}/comments`)
+//     .then(res => {
+//       console.log("result", res.data);
+//     })
+//     .catch(err => {
+//       console.log("error", err);
+//     });
+// }
+
 function getComment(id) {
   axios
     .get(`${api}/tickets/2/comments/${id}`)
@@ -97,7 +116,11 @@ function getComment(id) {
 
 function addComment(ticket_id, comment) {
   axios
-    .post(`${api}/tickets/${ticket_id}/comments`, comment)
+    .post(`${api}/tickets/${ticket_id}/comments`, {
+      ticket_id,
+      comment,
+      opened_by: 4
+    })
     .then(res => {
       console.log("result", res);
     })
@@ -238,3 +261,31 @@ function getUser(id) {
       console.log(err);
     });
 }
+
+/*
+
+axios
+      .post(`https://api-devdesk.herokuapp.com/api/tickets`, {
+        title: this.state.ticket.title,
+        description: this.state.ticket.description,
+        category_id: this.state.ticket.category,
+        opened_by: this.props.activeUser.id,
+        comment: this.state.ticket.snippet
+      })
+      // .then(({data}) => {
+      //   return repo
+      //     ? post(`${api}/tickets/${ticket.id}/comments`, {
+      //       comment: repo,
+      //       ticket_id: data.id,
+      //       opened_by: 4
+      //     })
+      //     : false
+      // })
+      .then(res => {
+        this.props.history.push(`/tickets`)
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+*/

@@ -1,15 +1,72 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import LandingPage from "./LandingPage/LandingPage";
+import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
+import { Container } from "./styled-components/Dashboard_Styles";
+import { Route } from "react-router-dom";
+import { Auth } from "./authentication/Authentication";
+import LandingPage from "./components/LandingPage/LandingPage";
+import TicketForm from "./components/TicketForm/TicketForm";
+import TicketList from "./components/TicketList/TicketList";
+import Register from "./components/LandingPage/Register";
+import Ticket from "./components/Ticket/Ticket";
+import TopBar from "./components/TopBar/TopBar";
+import LogIn from "./components/LandingPage/LogIn";
+
 
 class App extends React.Component {
+  state = {
+    activeUser: {},
+    authenticated: false
+  };
+
+  setActiveUser = activeUser => {
+    this.setState({
+      activeUser
+    });
+  };
+
   render() {
+    const { activeUser } = this.state;
+
     return (
-      <Router>
-        <LandingPage />
-      </Router>
+      <Container>
+        {Auth.isAuthenticated && <TopBar />}
+        <Route
+          exact
+          path="/"
+          render={props => (
+            <LandingPage {...props} setActiveUser={this.setActiveUser} />
+          )}
+        />
+        <Route
+          path="/login"
+          render={props => (
+            <LogIn {...props} setActiveUser={this.setActiveUser} />
+          )}
+        />
+        <Route
+          path="/register"
+          render={props => (
+            <Register {...props} setActiveUser={this.setActiveUser} />
+          )}
+        />
+        <PrivateRoute
+          exact
+          path="/tickets"
+          component={TicketList}
+          activeUser={activeUser}
+        />
+        <PrivateRoute
+          path="/tickets/:id"
+          component={Ticket}
+          activeUser={activeUser}
+        />
+        <PrivateRoute
+          path="/new-ticket"
+          component={TicketForm}
+          activeUser={activeUser}
+        />
+      </Container>
     );
   }
 }
-
 export default App;

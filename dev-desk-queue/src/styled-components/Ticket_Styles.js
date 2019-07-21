@@ -44,7 +44,7 @@ export const TicketHeader = styled.div`
   }
 `;
 
-export const UserInfo = styled.div`
+export const StyledUserInfo = styled.div`
   padding: 10px 15px;
   display: flex;
   align-items: center;
@@ -76,11 +76,11 @@ export const Description = styled.div`
   }
 `;
 
-export const CodeSnippet = styled.div`
+export const StyledCodeSnippet = styled.div`
   padding: 10px 15px;
 `;
 
-export const Repo = styled.div`
+export const StyledRepo = styled.div`
   padding: 10px 15px;
 
   font-size: 1.4rem;
@@ -104,7 +104,7 @@ export const CommentSectionHeader = styled.div`
   }
 `;
 
-export const ButtonContainer = styled.div`
+export const StyledButtonContainer = styled.div`
   padding: 10px 15px;
   display: flex;
   justify-content: flex-end;
@@ -165,9 +165,10 @@ export default {
   Container,
   TicketInfo,
   TicketHeader,
-  UserInfo,
+  StyledUserInfo,
   Description,
-  CodeSnippet,
+  StyledCodeSnippet,
   ReplyWrapper,
-  ButtonContainer
+  StyledRepo,
+  StyledButtonContainer
 };

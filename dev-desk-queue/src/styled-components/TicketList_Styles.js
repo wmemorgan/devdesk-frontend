@@ -8,7 +8,6 @@ export const Container = styled.div`
   max-width: 1000px;
 
   flex-grow: 99;
-  margin-top: 50px;
 
   @media (max-width: 800px) {
     padding: 0 10px;
