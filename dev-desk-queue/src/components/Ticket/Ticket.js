@@ -18,7 +18,7 @@ const api = `https://api-devdesk.herokuapp.com/api`;
 
 /*
   TO-DO:
-    try to clean up axios --- never going to happen
+    try to clean up axios calls... 
     try to clean up imports
 */
 
@@ -127,11 +127,12 @@ class Ticket extends Component {
 
   addComment = () => {
     const { reply, ticket, comments } = this.state;
+    const {activeUser} = this.props;
 
     const newComment = {
       comment: reply,
       ticket_id: ticket.id,
-      opened_by: 4
+      opened_by: activeUser.id
     };
 
     axios

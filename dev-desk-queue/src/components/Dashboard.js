@@ -11,8 +11,8 @@ import {
 import TicketList from "./TicketList/TicketList";
 import TicketForm from "./TicketForm/TicketForm";
 import Ticket from "./Ticket/Ticket";
-import LogOutButton, { PrivateRoute } from "../LandingPage/LandingPage"
-import RequireAuthentication from "./Authentication";
+import LogOutButton, { PrivateRoute } from "./LandingPage/LandingPage"
+import RequireAuthentication from "./authentication/Authentication";
 
 const api = `https://api-devdesk.herokuapp.com/api`;
 
@@ -24,13 +24,12 @@ class Dashboard extends Component {
     tickets: [],
     users: [],
     categories: [],
-    menuOpen: false,
-    activeUser: {
-      id: 1,
-      first_name: "Dave",
-      last_name: "Vazquez",
-      email: "dmvaz.li@gmail.com"
-    }
+    // activeUser: {
+    //   id: 1,
+    //   first_name: "Dave",
+    //   last_name: "Vazquez",
+    //   email: "dmvaz.li@gmail.com"
+    // }
   };
 
   toggleMenu = () => {
@@ -43,12 +42,14 @@ class Dashboard extends Component {
     const {
       tickets,
       categories,
-      menuOpen,
-      activeUser
+      // menuOpen,
+      // activeUser
     } = this.state;
+
+    const {activeUser} = this.props;
     return (
       <Container>
-        <TopBar>
+        {/* <TopBar>
           <NavContainer>
             <Link to="/tickets">
               <h1 style={{ color: "white" }}>DevDesk_Q</h1>
@@ -56,14 +57,14 @@ class Dashboard extends Component {
             <Nav menuOpen={menuOpen} onClick={this.toggleMenu}>
               <NavLink to="/tickets" activeStyle={{ color: "#dddddd" }}>
                 TICKETS
-              </NavLink>
+              </NavLink> */}
               {/* <NavLink
                 to="/assigned-tickets"
                 activeStyle={{ color: "#dddddd" }}
               >
                 YOUR TICKETS
               </NavLink> */}
-              <NavLink to="/new-ticket" activeStyle={{ color: "#dddddd" }}>
+              {/* <NavLink to="/new-ticket" activeStyle={{ color: "#dddddd" }}>
                 OPEN NEW TICKET
               </NavLink>
 
@@ -81,8 +82,8 @@ class Dashboard extends Component {
               />
             </MenuIconWrapper>
           </NavContainer>
-        </TopBar>
-        <Route
+        </TopBar> */}
+        {/* <Route
           exact
           path="/tickets"
           render={props => (
@@ -91,7 +92,7 @@ class Dashboard extends Component {
               activeUser={activeUser}
             />
           )}
-        />
+        /> */}
         {/* <Route
           path="/assigned-tickets"
           render={props => (
@@ -105,33 +106,31 @@ class Dashboard extends Component {
             />
           )}
         /> */}
-        <PrivateRoute
+        {/* <PrivateRoute
           component={TicketForm}
           path="/new-ticket"
           categories={categories}
-          activeUser={activeUser}
-
-          // render={props => (
-          //   <TicketForm
-          //     {...props}
-          //     categories={categories}
-          //     activeUser={activeUser}
-          //   />
-          // )}
+          activeUser={activeUser} */}
+        {/* <Route
+          path="/new-ticket"
+          render={props => (
+             <TicketForm
+               {...props}
+               activeUser={activeUser}
+             />
+          )}
         />
         <Route
           path="/tickets/:id"
           render={props => {
-            const id = parseInt(props.match.params.id);
             return (
               <Ticket
                 {...props}
-                ticket={tickets.find(ticket => ticket.id === id)}
                 activeUser={activeUser}
               />
             );
           }}
-        />
+        /> */}
       </Container>
     );
   }

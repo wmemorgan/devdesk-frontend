@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import {Container, FormHeader, Form, InputWrapper, ButtonContainer } from "../styled-components/TicketForm_Styles";
+import {Container, FormHeader, Form, InputWrapper, ButtonContainer } from "../../styled-components/TicketForm_Styles";
 
 
 export default class Register extends Component {
