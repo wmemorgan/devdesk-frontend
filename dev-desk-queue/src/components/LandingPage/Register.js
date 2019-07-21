@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
-import {Container, FormHeader, Form, InputWrapper, ButtonContainer } from "../../styled-components/TicketForm_Styles";
+import {Form, InputWrapper, ButtonContainer} from "../../styled-components/LandingPage_Styles";
 import { Auth } from "../../authentication/Authentication";
 
 
@@ -111,21 +111,23 @@ export default class Register extends Component {
   // };
   render() {
     const { redirectToReferrer, formError } = this.state;
+    const {goBack} = this.props;
 
     if (redirectToReferrer === true) {
       return <Redirect to="/tickets" />;
     }
 
     return (
-      <Container>
-        <FormHeader>
-          <h1>Register</h1>
-        </FormHeader>
+      // <Container>
+      //   <FormHeader>
+      //     <h1>Register</h1>
+      //   </FormHeader>
           <Form onSubmit={this.registerUser}>
             <InputWrapper>
-              <label>Name</label>
+              {/* <label>Name</label> */}
               <input
                 type="text"
+                placeholder="First Name"
                 name="firstName"
                 value={this.state.firstName}
                 onChange={this.handleChange}
@@ -133,9 +135,10 @@ export default class Register extends Component {
               {formError.firstName && <span>{formError.firstName}</span>}
             </InputWrapper>
             <InputWrapper>
-              <label>Last Name</label>
+              {/* <label>Last Name</label> */}
               <input
                 type="text"
+                placeholder="Last Name"
                 name="lastName"
                 value={this.state.lastName}
                 onChange={this.handleChange}
@@ -143,9 +146,10 @@ export default class Register extends Component {
               {formError.lastName && <span>{formError.lastName}</span>}
             </InputWrapper>
             <InputWrapper>
-              <label>Email</label>
+              {/* <label>Email</label> */}
               <input
                 type="text"
+                placeholder="Email"
                 name="email"
                 value={this.state.email}
                 onChange={this.handleChange}
@@ -153,9 +157,10 @@ export default class Register extends Component {
               {formError.email && <span>{formError.email}</span>}
             </InputWrapper>
             <InputWrapper>
-              <label>Password</label>
+              {/* <label>Password</label> */}
               <input
                 type="password"
+                placeholder="Password"
                 className="form-control"
                 name="password"
                 value={this.state.password}
@@ -164,10 +169,11 @@ export default class Register extends Component {
               {formError.password && <span>{formError.password}</span>}
             </InputWrapper>
             <ButtonContainer>
+              <button type="button" onClick={goBack}>Go Back</button>
               <button onClick={this.registerUser}>Register</button>
             </ButtonContainer>
           </Form>
-      </Container>
+      // </Container>
     );
   }
 }

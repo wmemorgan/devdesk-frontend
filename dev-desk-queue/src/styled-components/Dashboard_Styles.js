@@ -8,7 +8,7 @@ export const Container = styled.div`
   height: 100vh;
 `;
 
-export const TopBar = styled.div`
+export const StyledTopBar = styled.div`
   ${flex("row", "normal", "center")}
   width: 100%;
   height: fit-content;

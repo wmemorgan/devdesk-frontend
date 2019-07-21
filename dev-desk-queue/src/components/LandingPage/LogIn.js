@@ -2,14 +2,8 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import {Form, InputWrapper, ButtonContainer} from "../../styled-components/LandingPage_Styles";
 import { Auth } from "../../authentication/Authentication";
-import {
-  Container,
-  FormHeader,
-  Form,
-  InputWrapper,
-  ButtonContainer
-} from "../../styled-components/TicketForm_Styles";
 
 export default class LogIn extends Component {
   //State
@@ -134,21 +128,21 @@ export default class LogIn extends Component {
   render() {
     //Redirects to Dashboard once authenticated.
     const { redirectToReferrer, formError } = this.state;
-
+    const {goBack} = this.props;
     if (redirectToReferrer === true) {
       return <Redirect to="/tickets" />;
     }
 
     return (
-      <Container>
-        <FormHeader>
-          <h1>Login</h1>
-        </FormHeader>
+      // <Container>
+      //   <FormHeader>
+      //     <h1>Login</h1>
+      //   </FormHeader>
         <Form onSubmit={this.loginAuth}>
           <InputWrapper>
-            <label>Email</label>
             <input
               type="text"
+              placeholder="Email"
               name="email"
               value={this.state.email}
               onChange={this.handleChange}
@@ -156,9 +150,9 @@ export default class LogIn extends Component {
             {formError.email && <span>{formError.email}</span>}
           </InputWrapper>
           <InputWrapper>
-            <label>Password</label>
             <input
               type="password"
+              placeholder="Password"
               className="form-control"
               name="password"
               value={this.state.password}
@@ -167,10 +161,11 @@ export default class LogIn extends Component {
             {formError.password && <span>{formError.password}</span>}
           </InputWrapper>
           <ButtonContainer>
+            <button type="button" onClick={goBack}>Go Back</button>
             <button onClick={this.loginAuth}>Log in</button>
           </ButtonContainer>
         </Form>
-      </Container>
+      // </Container>
     );
   }
 }
