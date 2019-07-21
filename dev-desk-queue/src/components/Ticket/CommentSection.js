@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { OpenedByComment } from "./OpenedByComment";
-import { CreatedAt } from "./CreatedAt";
-import {UserInfo} from "../../styled-components/Ticket_Styles";
+import { UserInfo } from "./UserInfo";
 
 const Container = styled.div`
   display: flex;
@@ -22,18 +20,18 @@ const Message = styled.p`
 
 class CommentSection extends Component {
   render() {
-    const {comments, users} = this.props;
+    const {comments} = this.props;
     return (
       <Container>
-        {comments.map((comment, i) => (
-          <CommentContainer key={i}>
-            <UserInfo>
-              <OpenedByComment className="opened-by" comment={comment} users={users} />
-              <CreatedAt className="date" createdAt={comment.created_at} />
-            </UserInfo>
-            <Message>{comment.comment}</Message>
-          </CommentContainer>
-        ))}
+        {comments.map((comment, i) => {
+          return (
+            <CommentContainer key={i}>
+              <UserInfo openedBy={comment.opened_by} createdAt={comment.opened_by.created_at} bottom/>
+              <Message>{comment.comment}</Message>
+              {/* <button onClick={() => this.props.deleteComment(comment.id)}>Delete Comment</button> */}
+            </CommentContainer>
+          )
+        })}
       </Container>
     );
   }

@@ -45,11 +45,20 @@ export const InputWrapper = styled.div`
   flex-direction: column;
   align-items: flex-start;
 
-  margin: 10px 0;
+  margin: ${props => (props.marginNone ? "none" : "10px 0;")};
 
   label {
+    display: flex;
     font-size: 1.6rem;
     font-weight: bold;
+
+    span {
+      display: block;
+      color: red;
+      font-size: 1rem;
+      margin-top: -4px;
+      padding-left: 5px;
+    }
   }
   input,
   textarea,
@@ -94,6 +103,38 @@ export const InputWrapper = styled.div`
     -webkit-appearance: none;
     -webkit-border-radius: 0px;
     border-radius: 0px;
+  }
+
+  span {
+    padding-top: 5px;
+    color: red;
+    font-size: 1.2rem;
+  }
+
+  div.language-select {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    
+    width: 100%;
+
+    label {
+      width: fit-content;
+      align-self: flex-end;
+      font-size: 1.4rem;
+      font-weight: 400;
+      font-style: italic;
+
+      margin-right: 3px;
+    }
+    select {
+      width: fit-content;
+      align-self: flex-end;
+      font-size: 1.4rem;
+      margin-bottom: -3px;
+      -webkit-appearance: menulist;
+      border-bottom: none;
+    }
   }
 `;
 

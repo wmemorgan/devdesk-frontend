@@ -2,10 +2,10 @@ import React from "react";
 import { StyledAssignButton } from "../../styled-components/TicketRow_Styles";
 
 export const AssignButton = props => {
-	const {ticketID, assigned, assignedTo, openedBy, activeUserID} = props;
+	const {closed, assigned, assignedTo, openedBy, activeUserID} = props;
 
   const getStatus = () => {
-    if (openedBy === activeUserID) {
+    if (openedBy === activeUserID || closed) {
       return "hidden";
 		} 
 		if(assigned && assignedTo === activeUserID) {
@@ -33,7 +33,11 @@ export const AssignButton = props => {
 	}
 
   return (
-    <StyledAssignButton status={getStatus()}>
+		<StyledAssignButton 
+			status={getStatus()} 
+			onClick={props.handleClick}
+			disabled={getStatus() === "other-user-assigned"}
+		>
 			{getText()}
     </StyledAssignButton>
   );

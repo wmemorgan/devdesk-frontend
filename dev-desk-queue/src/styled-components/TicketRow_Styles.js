@@ -100,8 +100,8 @@ export const StyledAssignButton = styled.button`
     }
     else if(props.status === 'other-user-assigned') {
       return css`
-        background-color: red;
-        color: white;
+        background-color: grey;
+        color: black;
         box-shadow: 0 0 0 #000;
       `
     }

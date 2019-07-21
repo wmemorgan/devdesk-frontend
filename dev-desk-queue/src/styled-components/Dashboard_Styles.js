@@ -35,7 +35,7 @@ export const Nav = styled.nav`
   ${flex("row", "normal", "space-between")}
 
   width: 100%;
-  max-width: 500px;
+  max-width: 350px;
 
   a {
     font-size: ${fontSizing.m};

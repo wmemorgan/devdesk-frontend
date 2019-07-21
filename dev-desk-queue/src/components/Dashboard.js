@@ -10,7 +10,7 @@ import {
 } from "../styled-components/Dashboard_Styles";
 import TicketList from "./TicketList/TicketList";
 import TicketForm from "./TicketForm/TicketForm";
-import ViewTicket from "./Ticket/Ticket";
+import Ticket from "./Ticket/Ticket";
 
 const api = `https://api-devdesk.herokuapp.com/api`;
 
@@ -24,48 +24,22 @@ class Dashboard extends Component {
     categories: [],
     menuOpen: false,
     activeUser: {
-      id: 4,
+      id: 1,
       first_name: "Dave",
       last_name: "Vazquez",
       email: "dmvaz.li@gmail.com"
     }
   };
 
-  // componentDidMount() {
-  //   Promise.all([
-  //     axios.get(`${api}/tickets`),
-  //     axios.get(`${api}/users`),
-  //     axios.get(`${api}/categories`)
-  //   ])
-  //     .then(([res1, res2, res3]) => {
-  //       this.setState({
-  //         tickets: res1.data,
-  //         users: res2.data,
-  //         categories: res3.data
-  //       });
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // }
-
-  // sortBy = (filter, order) => {
-  //   this.setState({
-  //     ...this.state,
-  //     tickets: this.state.tickets.sort(compareValues(filter, order))
-  //   });
-  // };
-
-  // toggleMenu = () => {
-  //   this.setState({
-  //     menuOpen: !this.state.menuOpen
-  //   });
-  // };
+  toggleMenu = () => {
+    this.setState({
+      menuOpen: !this.state.menuOpen
+    });
+  };
 
   render() {
     const {
       tickets,
-      users,
       categories,
       menuOpen,
       activeUser
@@ -81,12 +55,12 @@ class Dashboard extends Component {
               <NavLink to="/tickets" activeStyle={{ color: "#dddddd" }}>
                 TICKETS
               </NavLink>
-              <NavLink
+              {/* <NavLink
                 to="/assigned-tickets"
                 activeStyle={{ color: "#dddddd" }}
               >
                 YOUR TICKETS
-              </NavLink>
+              </NavLink> */}
               <NavLink to="/new-ticket" activeStyle={{ color: "#dddddd" }}>
                 OPEN NEW TICKET
               </NavLink>
@@ -109,15 +83,11 @@ class Dashboard extends Component {
           render={props => (
             <TicketList
               {...props}
-              // tickets={tickets}
-              // users={users}
-              // categories={categories}
               activeUser={activeUser}
-              // sortBy={this.sortBy}
             />
           )}
         />
-        <Route
+        {/* <Route
           path="/assigned-tickets"
           render={props => (
             <TicketList
@@ -129,7 +99,7 @@ class Dashboard extends Component {
               // sortBy={this.sortBy}
             />
           )}
-        />
+        /> */}
         <Route
           path="/new-ticket"
           render={props => (
@@ -145,11 +115,9 @@ class Dashboard extends Component {
           render={props => {
             const id = parseInt(props.match.params.id);
             return (
-              <ViewTicket
+              <Ticket
                 {...props}
                 ticket={tickets.find(ticket => ticket.id === id)}
-                users={users}
-                categories={categories}
                 activeUser={activeUser}
               />
             );

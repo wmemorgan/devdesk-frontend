@@ -14,7 +14,7 @@ const api = `https://api-devdesk.herokuapp.com/api`;
 class TicketRow extends React.Component {
   state = {
     assigned: false,
-    assigned_to: null
+    assignedTo: null
   };
 
   componentDidMount() {
@@ -22,8 +22,8 @@ class TicketRow extends React.Component {
 
     if (assignedTo) {
       this.setState({
-        assigned_to: assignedTo,
-        assigned: false
+        assigned: true,
+        assignedTo
       });
     }
   }
@@ -36,18 +36,21 @@ class TicketRow extends React.Component {
     axios
       .get(`${api}/tickets/${ticketID}`)
       .then(({ data }) => {
-        console.log("tickets put", data);
         let ticket = data;
 
-        ticket.assigned_to = this.props.activeUser.id;
+        if(ticket.assigned_to) {
+          ticket.assigned_to = null;
+        } else {
+          ticket.assigned_to = this.props.activeUser.id;
+        }
 
         return axios.put(`${api}/tickets/${ticketID}`, ticket);
       })
       .then(({ data }) => {
-        console.log("tickets get", data);
+        console.log('ticket after assigned:', data);
         this.setState({
           assigned: !this.state.assigned,
-          assigned_to: data.id
+          assignedTo: data.assigned_to
         });
       })
       .catch(err => {
@@ -57,8 +60,7 @@ class TicketRow extends React.Component {
 
   render() {
     const { ticket, users, categories, activeUser } = this.props;
-    const { assigned, assigned_to } = this.state;
-    // console.log("TICKET", ticket.id);
+    const { assigned, assignedTo } = this.state;
     return (
       <Container to={`/tickets/${ticket.id}`}>
         <div>{ticket.id}</div>
@@ -66,16 +68,16 @@ class TicketRow extends React.Component {
         <CreatedAt createdAt={ticket.created_at} />
         <div>{categories[ticket.category_id - 1].name}</div>
         <OpenedBy ticket={ticket} users={users} />
-        <AssignedTo assignedTo={assigned_to} users={users} />
+        <AssignedTo assignedTo={assignedTo} users={users} />
         <Status closed={ticket.closed}>
           {ticket.closed ? "Resolved" : "Open"}
         </Status>
 
         <AssignButton
           handleClick={this.handleClick}
-          ticketID={ticket.id}
+          closed={ticket.closed}
           assigned={assigned}
-          assignedTo={assigned_to}
+          assignedTo={assignedTo}
           openedBy={ticket.opened_by}
           activeUserID={activeUser.id}
         />
