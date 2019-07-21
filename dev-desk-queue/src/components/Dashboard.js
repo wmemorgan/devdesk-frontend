@@ -11,7 +11,8 @@ import {
 import TicketList from "./TicketList/TicketList";
 import TicketForm from "./TicketForm/TicketForm";
 import Ticket from "./Ticket/Ticket";
-import LogOutButton from "../LandingPage/LandingPage"
+import LogOutButton, { PrivateRoute } from "../LandingPage/LandingPage"
+import RequireAuthentication from "./Authentication";
 
 const api = `https://api-devdesk.herokuapp.com/api`;
 
@@ -104,15 +105,19 @@ class Dashboard extends Component {
             />
           )}
         /> */}
-        <Route
+        <PrivateRoute
+          component={TicketForm}
           path="/new-ticket"
-          render={props => (
-            <TicketForm
-              {...props}
-              categories={categories}
-              activeUser={activeUser}
-            />
-          )}
+          categories={categories}
+          activeUser={activeUser}
+
+          // render={props => (
+          //   <TicketForm
+          //     {...props}
+          //     categories={categories}
+          //     activeUser={activeUser}
+          //   />
+          // )}
         />
         <Route
           path="/tickets/:id"

@@ -10,36 +10,7 @@ import {
 import LogIn from "../components/LogIn";
 import Register from "../components/Register";
 import Dashboard from "../components/Dashboard";
-
-// const Container = styled.div`
-//   display: flex;
-//   width: 100%;
-//   height: 100vh;
-//   flex-direction: column;
-//   border: 1px solid black;
-// `;
-
-// const NavContainer = styled.div`
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   width: 100%;
-//   height: fit-content;
-//   padding: 10px 20px;
-//   border: 1px solid black;
-// `;
-
-// const LogoContainer = styled.div`
-//   width: 100px;
-//   height: 50px;
-// `;
-
-// const NavBar = styled.nav`
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   width: 500px;
-// `;
+import TicketForm from "../components/TicketForm/TicketForm";
 
 //Authentication
 export const Auth = {
@@ -51,13 +22,11 @@ export const Auth = {
   signout(cb) {
     this.isAuthenticated = false;
     localStorage.removeItem("token");
-    console.log(localStorage);
-    setTimeout(cb, 100);
   }
 };
 
 //Creates a private route
-function PrivateRoute({ component: Component, ...rest }) {
+export function PrivateRoute({ component: Component, ...rest }) {
   
   return (
     <Route
@@ -137,6 +106,11 @@ export default class LandingPage extends Component {
           path="/tickets"
           component={Dashboard}
           user={this.state.user}
+        />
+        <PrivateRoute
+          path="/new-ticket"
+          component={TicketForm}
+          // user={this.state.user}
         />
       </Container>
     );

@@ -4,11 +4,6 @@ import axios from "axios";
 import { Redirect } from "react-router-dom";
 import { Auth } from "../LandingPage/LandingPage";
 import {Container, FormHeader, Form, InputWrapper, ButtonContainer } from "../styled-components/TicketForm_Styles";
-// const Container = styled.div`
-//   display: flex;
-//   width: 100%;
-//   height: 100vh;
-// `;
 
 export default class LogIn extends Component {
   //State
@@ -61,7 +56,6 @@ export default class LogIn extends Component {
     if (redirectToReferrer === true) {
       return <Redirect to="/tickets" />;
     }
-    // {Container, FormHeader, Form, InputWrapper, ButtonContainer }
     return (
       <Container>
         <FormHeader>
