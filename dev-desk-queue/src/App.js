@@ -7,13 +7,12 @@ import {
 } from "react-router-dom";
 import {Container} from "./styled-components/Dashboard_Styles";
 import LandingPage from "./components/LandingPage/LandingPage";
-import Dashboard from "./components/Dashboard";
 import LogIn from "./components/LandingPage/LogIn";
 import Register from "./components/LandingPage/Register";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import TicketForm from "./components/TicketForm/TicketForm";
 import TicketList from "./components/TicketList/TicketList";
-import { Auth } from "./components/authentication/Authentication";
+import { Auth } from "./authentication/Authentication";
 import {
   TopBar,
   NavContainer,

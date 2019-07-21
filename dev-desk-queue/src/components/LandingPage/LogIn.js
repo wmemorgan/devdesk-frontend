@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
-import { Auth } from "../authentication/Authentication";
+import { Auth } from "../../authentication/Authentication";
 import {Container, FormHeader, Form, InputWrapper, ButtonContainer } from "../../styled-components/TicketForm_Styles";
 
 export default class LogIn extends Component {
