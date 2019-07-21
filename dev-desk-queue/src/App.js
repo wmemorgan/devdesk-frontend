@@ -1,16 +1,8 @@
 import React from "react";
-import LandingPage from "./LandingPage/LandingPage";
 import { BrowserRouter as Router } from "react-router-dom";
-
-
-
+import LandingPage from "./LandingPage/LandingPage";
 
 class App extends React.Component {
-
-state = {
-  
-};
-
   render() {
     return (
       <Router>

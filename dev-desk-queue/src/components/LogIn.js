@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
-import {Auth} from "../LandingPage/LandingPage"
-
+import { Auth } from "../LandingPage/LandingPage";
 
 const Container = styled.div`
   display: flex;
@@ -11,14 +10,12 @@ const Container = styled.div`
   height: 100vh;
 `;
 
-
-
 export default class LogIn extends Component {
   //State
   state = {
     email: "",
     password: "",
-    redirectToReferrer: false
+    redirectToReferrer: false,
   };
 
   //Axios calls
@@ -26,28 +23,28 @@ export default class LogIn extends Component {
     const user = {
       email: this.state.email,
       password: this.state.password,
-      redirectToReferrer: true
+      redirectToReferrer: true,
     };
     event.preventDefault();
     axios
       .post("https://api-devdesk.herokuapp.com/api/login", user)
-      .then(function(response) {
+      .then((response) => {
         console.log(response);
+        localStorage.setItem("token", response.data.token);
+        this.props.setActiveUser(response.data.user);
       })
       .catch(function(error) {
         console.log(error);
       });
-      console.log(user);
   };
-  
+
   //Toggles Authentication when logging in.
-  
+
   loginAuth = event => {
     Auth.authenticate(() => {
       this.setState({ redirectToReferrer: true });
     });
   };
-
 
   //Handlers
   handleChange = e => {

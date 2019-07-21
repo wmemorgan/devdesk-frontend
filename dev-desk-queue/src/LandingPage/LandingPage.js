@@ -46,10 +46,12 @@ export const Auth = {
   isAuthenticated: false,
   authenticate(cb) {
     this.isAuthenticated = true;
-    setTimeout(cb, 100); // fake async
+    setTimeout(cb, 100);
   },
   signout(cb) {
     this.isAuthenticated = false;
+    localStorage.removeItem("token");
+    console.log(localStorage);
     setTimeout(cb, 100);
   }
 };
@@ -61,7 +63,7 @@ function PrivateRoute({ component: Component, ...rest }) {
       {...rest}
       render={props =>
         Auth.isAuthenticated ? (
-          <Component {...props} />
+          <Component {...props} {...rest} />
         ) : (
           <Redirect
             to={{
@@ -76,7 +78,7 @@ function PrivateRoute({ component: Component, ...rest }) {
 }
 
 //Logout component
-const LogOutButton = withRouter(({ history }) =>
+export const LogOutButton = withRouter(({ history }) =>
   Auth.isAuthenticated ? (
     <p>
       Welcome!{" "}
@@ -94,24 +96,44 @@ const LogOutButton = withRouter(({ history }) =>
 );
 
 export default class LandingPage extends Component {
+  state = {
+    user: {}
+  };
+
+  setActiveUser = user => {
+    this.setState({
+      user
+    });
+    console.log(user);
+  };
+
   render() {
     return (
       <Container>
-        <NavContainer>
+        { !Auth.isAuthenticated ? <NavContainer>
           <LogoContainer>
             <p>DevDesk_Q</p>
           </LogoContainer>
           <NavBar>
-            <LogOutButton />
             <Link to="login">Log In</Link>
             <Link to="register">Register</Link>
             <Link to="dashboard">Dashboard</Link>
           </NavBar>
-        </NavContainer>
+          </NavContainer> : null }
+        
         <Route path="/" />
-        <Route path="/login" component={LogIn} />
+        <Route
+          path="/login"
+          render={props => (
+            <LogIn {...props} setActiveUser={this.setActiveUser} />
+          )}
+        />
         <Route path="/register" component={Register} />
-        <PrivateRoute path="/dashboard" component={Dashboard} />
+        <PrivateRoute
+          path="/dashboard"
+          component={Dashboard}
+          user={this.state.user}
+        />
       </Container>
     );
   }
