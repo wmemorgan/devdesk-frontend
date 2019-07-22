@@ -4,6 +4,7 @@ import { Container } from "../../styled-components/TicketList_Styles";
 import TicketHeader from "../TicketListHeader/TicketHeader";
 import TicketRow from "../TicketRow/TicketRow";
 import TicketListNav from "./TicketListNav";
+import {ClipLoader} from "react-spinners";
 
 const api = `https://api-devdesk.herokuapp.com/api`;
 /****************************************************************
@@ -16,10 +17,13 @@ class TicketList extends React.Component {
     statusFilter: "all",
     totalTicketFilter: "all",
     users: [],
-    categories: []
+    categories: [],
+    loadingTickets: false
   };
 
   componentDidMount() {
+    this.setState({loadingTickets: true});
+
     Promise.all([
       axios.get(`${api}/tickets`),
       axios.get(`${api}/users`),
@@ -35,7 +39,9 @@ class TicketList extends React.Component {
         });
       })
       .catch(err => {
-        console.log(err);
+        this.setState({
+          loadingTickets: true
+        });
       });
   }
 
@@ -43,6 +49,7 @@ class TicketList extends React.Component {
     const {filteredTickets} = this.state;
     this.setState({
       ...this.state,
+      loadingTickets: false,
       filteredTickets: filteredTickets.sort(compareValues(filter, order))
     });
   };
@@ -70,6 +77,7 @@ class TicketList extends React.Component {
 
       this.setState({
         ...this.state,
+        loadingTickets: false,
         filteredTickets: filteredTickets
       })
     })
@@ -82,8 +90,9 @@ class TicketList extends React.Component {
   };
 
   render() {
-    const { tickets, filteredTickets, users, categories } = this.state;
+    const { loadingTickets, tickets, filteredTickets, users, categories } = this.state;
     const { activeUser } = this.props;
+
     return (
       <Container>
         <TicketListNav 
@@ -101,6 +110,13 @@ class TicketList extends React.Component {
             activeUser={activeUser}
           />
         ))}
+        <ClipLoader
+          css={"margin-left: calc(98%/2); margin-top: 200px;"} 
+          sizeUnit={"px"}
+          size={100}
+          color={'black'}
+          loading={loadingTickets}
+        />
       </Container>
     );
   }

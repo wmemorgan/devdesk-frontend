@@ -1,9 +1,13 @@
 import React, { Component } from "react";
-import styled from "styled-components";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
-import {Form, InputWrapper, ButtonContainer} from "../../styled-components/LandingPage_Styles";
+import {
+  Form,
+  InputWrapper,
+  ButtonContainer
+} from "../../styled-components/LandingPage_Styles";
 import { Auth } from "../../authentication/Authentication";
+import { PropagateLoader } from "react-spinners";
 
 export default class LogIn extends Component {
   //State
@@ -14,36 +18,11 @@ export default class LogIn extends Component {
     formError: {
       email: "",
       password: ""
-    }
+    },
+    loggingIn: false,
+    loginFailed: false
   };
 
-  // Axios calls
-  // logIn = event => {
-  //   const user = {
-  //     email: this.state.email,
-  //     password: this.state.password,
-  //     redirectToReferrer: true,
-  //   };
-  //   event.preventDefault();
-  //   axios
-  //     .post("https://api-devdesk.herokuapp.com/api/login", user)
-  //     .then((response) => {
-  //       console.log(response);
-  //       localStorage.setItem("token", response.data.token);
-  //       this.props.setActiveUser(response.data.user);
-  //     })
-  //     .catch(function(error) {
-  //       console.log(error);
-  //     });
-  // };
-
-  /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-     Moved the above into loginAuth so it triggers the authentication
-      toggle based on whether or not the axios call returned a success
-      response.
-  */
-
-  // Toggles Authentication when logging in.
   loginAuth = event => {
     event.preventDefault();
 
@@ -56,32 +35,26 @@ export default class LogIn extends Component {
         redirectToReferrer: true
       };
 
+      this.setState({ loggingIn: true });
+
       axios
         .post("https://api-devdesk.herokuapp.com/api/login", user)
         .then(response => {
-          console.log("then response", response);
-
-          // localStorage.setItem("token", response.data.token);
-          /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-            Not sure what to do with the token at this point if the toggle protects the routes.
-            
-            At the moment, if I refresh the page, the authentication toggle is switched to false,
-              and the user is routed to the Login page from the Protected Route.
-            
-            If the the token has some kind of expiration on the server that could be checked every so
-              often, I might be able to keep the user logged in based on whether or not the token is
-              still valid.
-            
-            Until then, the user is just going to have to login if they refresh the page.
-          */
+          this.setState({
+            loggingIn: false,
+            loginFailed: false
+          });
 
           Auth.authenticate(() => {
             this.setState({ redirectToReferrer: true });
             setActiveUser(response.data.user);
           });
         })
-        .catch(function(error) {
-          console.log(error);
+        .catch(error => {
+          this.setState({
+            loggingIn: false,
+            loginFailed: true
+          });
         });
     }
   };
@@ -90,6 +63,7 @@ export default class LogIn extends Component {
   handleChange = e => {
     this.setState({
       ...this.state.user,
+      loginFailed: false,
       [e.target.name]: e.target.value
     });
   };
@@ -107,8 +81,7 @@ export default class LogIn extends Component {
     if (!email) {
       newFormError.email = "Please enter your email address.";
       isValid = false;
-    }
-    else if (!emailRegex.test(email)) {
+    } else if (!emailRegex.test(email)) {
       newFormError.email = "An invalid email address was entered.";
     }
     if (!password) {
@@ -126,46 +99,61 @@ export default class LogIn extends Component {
   }
 
   render() {
-    //Redirects to Dashboard once authenticated.
-    const { redirectToReferrer, formError } = this.state;
-    const {goBack} = this.props;
+    const {
+      loggingIn,
+      redirectToReferrer,
+      formError,
+      loginFailed
+    } = this.state;
+    console.log(loginFailed);
+    const { goBack } = this.props;
     if (redirectToReferrer === true) {
       return <Redirect to="/tickets" />;
     }
 
     return (
-      // <Container>
-      //   <FormHeader>
-      //     <h1>Login</h1>
-      //   </FormHeader>
-        <Form onSubmit={this.loginAuth}>
-          <InputWrapper>
-            <input
-              type="text"
-              placeholder="Email"
-              name="email"
-              value={this.state.email}
-              onChange={this.handleChange}
-            />
-            {formError.email && <span>{formError.email}</span>}
-          </InputWrapper>
-          <InputWrapper>
-            <input
-              type="password"
-              placeholder="Password"
-              className="form-control"
-              name="password"
-              value={this.state.password}
-              onChange={this.handleChange}
-            />
-            {formError.password && <span>{formError.password}</span>}
-          </InputWrapper>
-          <ButtonContainer>
-            <button type="button" onClick={goBack}>Go Back</button>
-            <button onClick={this.loginAuth}>Log in</button>
-          </ButtonContainer>
-        </Form>
-      // </Container>
+      <Form onSubmit={this.loginAuth}>
+        <InputWrapper>
+          <input
+            type="text"
+            placeholder="Email"
+            name="email"
+            value={this.state.email}
+            onChange={this.handleChange}
+          />
+          {formError.email && <span>{formError.email}</span>}
+        </InputWrapper>
+        <InputWrapper>
+          <input
+            type="password"
+            placeholder="Password"
+            className="form-control"
+            name="password"
+            value={this.state.password}
+            onChange={this.handleChange}
+          />
+          {formError.password && <span>{formError.password}</span>}
+        </InputWrapper>
+        <ButtonContainer>
+          <button type="button" onClick={goBack}>
+            Go Back
+          </button>
+          <button onClick={this.loginAuth}>Log in</button>
+        </ButtonContainer>
+        <PropagateLoader
+          css={`
+            margin-left: calc(100% / 2);
+            margin-top: 15px;
+          `}
+          sizeUnit={"px"}
+          size={10}
+          color={"#d2d2d2"}
+          loading={loggingIn}
+        />
+        {loginFailed && (
+          <span className="login-error">Your account was not found.</span>
+        )}
+      </Form>
     );
   }
 }

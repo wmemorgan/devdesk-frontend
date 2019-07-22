@@ -13,6 +13,7 @@ import { UserInfo } from "./UserInfo";
 import { CodeSnippet } from "./CodeSnippet";
 import { Repo } from "./Repo";
 import { ButtonContainer } from "./ButtonContainer";
+import {PropagateLoader, BarLoader} from "react-spinners";
 
 const api = `https://api-devdesk.herokuapp.com/api`;
 
@@ -25,13 +26,15 @@ const api = `https://api-devdesk.herokuapp.com/api`;
 class Ticket extends Component {
   state = {
     ticket: null,
+    snippetLanguage: "text",
     comments: null,
     category: null,
     assignedTo: null,
     openedBy: null,
     assigned: false,
     reply: "",
-    fetchingTicket: true
+    loadingTicket: true,
+    postingComment: false
   };
 
   componentDidMount() {
@@ -87,7 +90,7 @@ class Ticket extends Component {
           assignedTo,
           assigned,
           openedBy,
-          fetchingTicket: false
+          loadingTicket: false
         });
       })
       .catch(err => {
@@ -135,6 +138,8 @@ class Ticket extends Component {
       opened_by: activeUser.id
     };
 
+    this.setState({postingComment: true});
+
     axios
       .post(`${api}/tickets/${ticket.id}/comments`, newComment)
       .then(() => {
@@ -150,12 +155,13 @@ class Ticket extends Component {
       .then(() => {
         this.setState({
           ...this.state,
+          postingComment: false,
           comments: [...comments, newComment],
           reply: ""
         });
       })
       .catch(err => {
-        console.log(err);
+        this.setState({postingComment: false});
       });
   };
 
@@ -214,13 +220,23 @@ class Ticket extends Component {
       openedBy,
       reply,
       ticket,
-      fetchingTicket
+      loadingTicket,
+      postingComment
     } = this.state;
     const { activeUser } = this.props;
 
-    return fetchingTicket ? (
-      <div>Fetching Ticket...</div>
-    ) : (
+    if(loadingTicket) {
+      return (
+        <PropagateLoader
+          css={"margin-top: 200px;"} 
+          sizeUnit={"px"}
+          size={15}
+          color={'black'}
+        />
+      );
+    }
+
+    return (
       <Container>
         <TicketInfo>
           <TicketHeader>
@@ -244,14 +260,23 @@ class Ticket extends Component {
           deleteComment={this.deleteComment}
         />
         {assigned && activeUser.id === ticket.assigned_to && (
-          <ReplyWrapper>
-            <textarea
-              name="reply"
-              placeholder="Type your reply here.."
-              value={reply}
-              onChange={this.handleChange}
+          <>
+            <ReplyWrapper>
+              <textarea
+                name="reply"
+                placeholder="Type your reply here.."
+                value={reply}
+                onChange={this.handleChange}
+              />
+            </ReplyWrapper>
+            <BarLoader 
+              css={"width: 100%; background-color: grey;"} 
+              sizeUnit={"px"}
+              height={4}
+              color={'black'}
+              loading={postingComment}
             />
-          </ReplyWrapper>
+          </>
         )}
 
         <ButtonContainer
