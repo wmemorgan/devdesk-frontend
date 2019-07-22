@@ -26,6 +26,11 @@ export const Hero = styled.div`
 
   background: url(${img}) no-repeat;
 
+  @media(max-width: 800px) {
+    justify-content: center;
+    background: none;
+  }
+
   /* border: 1px solid white; */
 `;
 
@@ -47,6 +52,10 @@ export const FormContainer = styled.div`
     font-size: 5rem;
     font-weight: 400;
     font-family: "Source Code Pro", monospace;
+  }
+
+  @media(max-width: 800px) {
+    margin-right: 0;
   }
 `;
 
