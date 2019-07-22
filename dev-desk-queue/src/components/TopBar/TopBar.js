@@ -26,7 +26,7 @@ export default class TopBar extends Component {
         {Auth.isAuthenticated && (
           <StyledTopBar>
             <NavContainer>
-              <Link to="/">
+              <Link to="/tickets">
                 <h1 style={{ color: "white" }}>DevDesk_Q</h1>
               </Link>
 
