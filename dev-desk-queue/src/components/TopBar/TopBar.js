@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Link, NavLink} from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Auth } from "../../authentication/Authentication";
 import {
   StyledTopBar,
@@ -8,57 +8,60 @@ import {
   MenuIconWrapper
 } from "../../styled-components/Dashboard_Styles";
 export default class TopBar extends Component {
-
-	state = {
+  state = {
     menuOpen: false
   };
 
-	toggleMenuIcon = () => {
+  toggleMenuIcon = () => {
     this.setState({
       menuOpen: !this.state.menuOpen
     });
-	};
-	
+  };
+
   render() {
-		const {menuOpen} = this.state;
+    const { menuOpen } = this.state;
     return (
-      <StyledTopBar>
-        <NavContainer>
-          <Link to="/">
-            <h1 style={{ color: "white" }}>DevDesk_Q</h1>
-          </Link>
+      <>
+        {Auth.isAuthenticated && (
+          <StyledTopBar>
+            <NavContainer>
+              <Link to="/">
+                <h1 style={{ color: "white" }}>DevDesk_Q</h1>
+              </Link>
 
-          <Nav menuOpen={menuOpen} onClick={this.toggleMenuIcon}>
-            <NavLink to="/tickets" activeStyle={{ color: "#dddddd" }}>
-              TICKETS
-            </NavLink>
-            {/* <NavLink
-                    to="/assigned-tickets"
-                    activeStyle={{ color: "#dddddd" }}
-                  >
-                    YOUR TICKETS
-                  </NavLink> */}
-            <NavLink to="/new-ticket" activeStyle={{ color: "#dddddd" }}>
-              OPEN NEW TICKET
-            </NavLink>
-            <NavLink
-              to="/"
-              activeStyle={{ color: "#dddddd" }}
-              onClick={() => Auth.signout()}
-            >
-              LOGOUT
-            </NavLink>
-          </Nav>
+              <Nav menuOpen={menuOpen} onClick={this.toggleMenuIcon}>
+                <NavLink to="/tickets" activeStyle={{ color: "#dddddd" }}>
+                  TICKETS
+                </NavLink>
+                {/* <NavLink
+											to="/assigned-tickets"
+											activeStyle={{ color: "#dddddd" }}
+										>
+											YOUR TICKETS
+										</NavLink> */}
+                <NavLink to="/new-ticket" activeStyle={{ color: "#dddddd" }}>
+                  OPEN NEW TICKET
+                </NavLink>
+                <NavLink
+                  to="/"
+                  activeStyle={{ color: "#dddddd" }}
+                  onClick={() => Auth.signout()}
+                >
+                  LOGOUT
+                </NavLink>
+              </Nav>
 
-          <MenuIconWrapper>
-            <img
-              src="https://img.icons8.com/ios-glyphs/30/FFFFFF/menu.png"
-              onClick={this.toggleMenu}
-              alt="Menu Icon"
-            />
-          </MenuIconWrapper>
-        </NavContainer>
-      </StyledTopBar>
+              <MenuIconWrapper>
+                <img
+                  src="https://img.icons8.com/ios-glyphs/30/FFFFFF/menu.png"
+                  onClick={this.toggleMenu}
+                  alt="Menu Icon"
+                />
+              </MenuIconWrapper>
+            </NavContainer>
+          </StyledTopBar>
+        )}
+      </>
     );
   }
 }
