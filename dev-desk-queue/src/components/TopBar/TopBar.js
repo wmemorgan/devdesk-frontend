@@ -13,7 +13,6 @@ export default class TopBar extends Component {
   };
 
   toggleMenuIcon = () => {
-		console.log('click');
     this.setState({
       menuOpen: !this.state.menuOpen
     });
@@ -54,6 +53,7 @@ export default class TopBar extends Component {
 
               <MenuIconWrapper>
                 <img
+                  style={{height: "25px"}}
                   src="https://img.icons8.com/ios-glyphs/30/FFFFFF/menu.png"
                   onClick={this.toggleMenuIcon}
                   alt="Menu Icon"

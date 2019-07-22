@@ -15,7 +15,7 @@ export const Container = styled.div`
   }
 
   @media (max-width: 500px) {
-    grid-template-columns: 5% 40% 20% 20% 20%;
+    grid-template-columns: 8% 27% 15% 20% 15% 15%;
   }
 
   padding: 5px 15px;

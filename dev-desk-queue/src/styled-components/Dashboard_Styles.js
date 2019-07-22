@@ -3,7 +3,6 @@ import { color, fontSizing, flex } from "./theme";
 
 export const Container = styled.div`
   ${flex("column", "center")};
-
   width: 100%;
   height: 100vh;
 `;
@@ -13,7 +12,7 @@ export const StyledTopBar = styled.div`
   width: 100%;
   height: fit-content;
 
-  padding: 20px 40px;
+  padding: 15px 40px;
 
   border-bottom: 1px solid black;
 

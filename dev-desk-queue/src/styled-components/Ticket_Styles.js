@@ -16,6 +16,11 @@ export const Container = styled.div`
   background: linear-gradient(180deg, #bdc9ca 0%, #9eaaab 100%);
 
   box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.2);
+
+  @media(max-width: 500px) {
+    margin-top: 0;
+    border-top: none;
+  }
 `;
 
 export const TicketInfo = styled.div`
