@@ -15,7 +15,7 @@ import LogIn from "./components/LandingPage/LogIn";
 class App extends React.Component {
   state = {
     activeUser: {},
-    authenticated: false
+    topBarHidden: false
   };
 
   setActiveUser = activeUser => {
@@ -24,12 +24,18 @@ class App extends React.Component {
     });
   };
 
+  topBarHidden = (toggle) => {
+    this.setState({
+      topBarHidden: toggle
+    })
+  }
+
   render() {
     const { activeUser } = this.state;
 
     return (
       <Container>
-        {Auth.isAuthenticated && <TopBar />}
+        {Auth.isAuthenticated && <TopBar topBarHidden={this.topBarHidden}/>}
         <Route
           exact
           path="/"

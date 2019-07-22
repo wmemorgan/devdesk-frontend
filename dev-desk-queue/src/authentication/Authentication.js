@@ -44,7 +44,7 @@ export const Auth = {
     this.isAuthenticated = true;
     setTimeout(cb, 100);
   },
-  signout() {
+  signout(cb) {
     this.isAuthenticated = false;
     
     // localStorage.removeItem("token"); 
