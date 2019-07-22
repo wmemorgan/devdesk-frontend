@@ -131,6 +131,8 @@ class Ticket extends Component {
     const { reply, ticket, comments } = this.state;
     const {activeUser} = this.props;
 
+    console.log('reply', reply);
+
     const newComment = {
       comment: reply,
       ticket_id: ticket.id,
@@ -249,7 +251,7 @@ class Ticket extends Component {
             top
           />
           <Description>
-            <p>{`${ticket.description}`}</p>
+            <p style={{whiteSpace: "pre-wrap"}}>{`${ticket.description}`}</p>
           </Description>
           <CodeSnippet codeSnippet={comments[0].comment} />
           <Repo comment={comments[1].comment} />
