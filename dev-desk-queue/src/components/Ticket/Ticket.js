@@ -60,7 +60,6 @@ class Ticket extends Component {
           : false;
       })
       .then(res => {
-        console.log("response from this shit", res);
         if (res) {
           assignedTo = res.data;
           assigned = !ticket.closed;

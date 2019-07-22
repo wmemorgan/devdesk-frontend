@@ -1,6 +1,6 @@
 import styled, {css} from "styled-components";
 import { Link } from "react-router-dom";
-import { flex, color, fontSizing, device } from "./theme";
+import { flex, color, fontSizing } from "./theme";
 
 export const Container = styled(Link)`
   display: grid;
@@ -54,14 +54,11 @@ export const Container = styled(Link)`
 
   @media (max-width: 500px) {
     grid-template-columns: 8% 27% 15% 20% 15% 15%;
-    /* grid-template-rows: auto auto; */
-
-    button {
-      /* grid-column-start: 2;
-      grid-column-end: 6; */
-      margin: 5px;
-      width: 100%;
-      height: 30px;
+    div:nth-child(4) {
+      padding-left: 10px;
+    }
+    div:nth-child(2) {
+      padding-right: 5px;
     }
   }
 `;
@@ -80,6 +77,11 @@ export const Status = styled.div`
 
   background-color: ${props =>
     props.closed ? color.ticketOpen : color.ticketClosed};
+
+  @media (max-width: 500px) {
+    font-size: 1rem;
+    width: 50px;
+  }
 `;
 
 export const StyledAssignButton = styled.button`
@@ -119,9 +121,15 @@ export const StyledAssignButton = styled.button`
   }}
 
   @media (max-width: 500px) {
-    margin: 5px;
-    width: 100%;
-    height: 30px;
+
+      /* grid-column-start: 2;
+      grid-column-end: 6; */
+      margin: 5px;
+      width: 100%;
+      height: 30px;
+      font-size: 1rem;
+
+    
   }
 `;
 

@@ -12,7 +12,6 @@ export const CodeSnippet = props => {
     
     return {language, codeSnippet};
   }
-  console.log('codeSnippet' , code());
   return props.codeSnippet ? (
     <StyledCodeSnippet>
       <SyntaxHighlighter
