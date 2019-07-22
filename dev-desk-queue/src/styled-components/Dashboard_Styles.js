@@ -47,7 +47,7 @@ export const Nav = styled.nav`
     flex-direction: column;
 
     position: absolute;
-    top: 72px;
+    top: 57px;
 
     max-width: 100%;
 
