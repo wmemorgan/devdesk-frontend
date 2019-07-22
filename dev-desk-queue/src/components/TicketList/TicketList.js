@@ -33,6 +33,7 @@ class TicketList extends React.Component {
         this.setState({
           ...this.state,
           tickets: res1.data,
+          loadingTickets: false,
           filteredTickets: res1.data,
           users: res2.data,
           categories: res3.data
