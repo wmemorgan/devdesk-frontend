@@ -83,6 +83,14 @@ export const Form = styled.form`
 
   width: 100%;
   height: fit-content;
+
+  span.login-error {
+    width: 100%;
+    text-align:center;
+    padding-top: 5px;
+    color: red;
+    font-size: 1.2rem;
+  }
 `;
 
 export const InputWrapper = styled.div`
