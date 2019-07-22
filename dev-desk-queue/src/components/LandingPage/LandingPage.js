@@ -24,7 +24,6 @@ export default class LandingPage extends Component {
   };
 
   goBack = () => {
-    console.log("go back");
     this.setState({
       displayRegister: false,
       displayLogin: false
@@ -39,6 +38,10 @@ export default class LandingPage extends Component {
         <Hero>
           <FormContainer>
             <h1>DevDesk_Q</h1>
+            {/* <p>Connect with Team Leads and Instructors</p>
+            <p>Post your Questions</p>
+            <p>Get Help</p>
+            <p>Grow as a Developer</p> */}
             {!displayRegister && !displayLogin && (
               <FormLinkContainer>
                 <button name="displayLogin" onClick={this.displayLogin}>

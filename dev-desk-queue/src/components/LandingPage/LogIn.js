@@ -105,7 +105,6 @@ export default class LogIn extends Component {
       formError,
       loginFailed
     } = this.state;
-    console.log(loginFailed);
     const { goBack } = this.props;
     if (redirectToReferrer === true) {
       return <Redirect to="/tickets" />;
