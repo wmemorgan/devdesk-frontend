@@ -237,6 +237,9 @@ class Ticket extends Component {
       );
     }
 
+    if(!loadingTicket) {
+      console.log(ticket.opened_by, activeUser.id);
+    }
     return (
       <Container>
         <TicketInfo>
@@ -260,7 +263,7 @@ class Ticket extends Component {
           comments={comments.slice(2)}
           deleteComment={this.deleteComment}
         />
-        {assigned && activeUser.id === ticket.assigned_to && (
+        {((assigned && activeUser.id === ticket.assigned_to) || activeUser.id === ticket.opened_by) && (
           <>
             <ReplyWrapper>
               <textarea
