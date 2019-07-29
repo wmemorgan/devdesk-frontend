@@ -1,19 +1,18 @@
-import React, { Component } from "react";
-import axios from "axios";
-import CommentSection from "./CommentSection";
+import React, { Component } from 'react';
+import axios from 'axios';
+import CommentSection from './CommentSection';
 import {
   Container,
   TicketInfo,
   TicketHeader,
   Description,
-  ReplyWrapper,
-  CommentSectionHeader
-} from "../../styled-components/Ticket_Styles";
-import { UserInfo } from "./UserInfo";
-import { CodeSnippet } from "./CodeSnippet";
-import { Repo } from "./Repo";
-import { ButtonContainer } from "./ButtonContainer";
-import {PropagateLoader, BarLoader} from "react-spinners";
+  ReplyWrapper
+} from '../../styled-components/Ticket_Styles';
+import { UserInfo } from './UserInfo';
+import { CodeSnippet } from './CodeSnippet';
+import { Repo } from './Repo';
+import { ButtonContainer } from './ButtonContainer';
+import { PropagateLoader, BarLoader } from 'react-spinners';
 
 const api = `https://api-devdesk.herokuapp.com/api`;
 
@@ -26,19 +25,18 @@ const api = `https://api-devdesk.herokuapp.com/api`;
 class Ticket extends Component {
   state = {
     ticket: null,
-    snippetLanguage: "text",
+    snippetLanguage: 'text',
     comments: null,
     category: null,
-    assignedTo: null,
     openedBy: null,
     assigned: false,
-    reply: "",
+    reply: '',
     loadingTicket: true,
     postingComment: false
   };
 
   componentDidMount() {
-    let ticket, category, openedBy, assignedTo, assigned;
+    let ticket, category, openedBy, assigned;
     let ticketID = this.props.match.params.id;
     let comments = [];
     let promises = [];
@@ -61,7 +59,6 @@ class Ticket extends Component {
       })
       .then(res => {
         if (res) {
-          assignedTo = res.data;
           assigned = !ticket.closed;
         }
 
@@ -86,7 +83,6 @@ class Ticket extends Component {
           ticket,
           comments,
           category,
-          assignedTo,
           assigned,
           openedBy,
           loadingTicket: false
@@ -118,8 +114,7 @@ class Ticket extends Component {
         this.setState({
           ...this.state,
           ticket: data,
-          assigned: !assigned,
-          assignedTo: data.assigned_to
+          assigned: !assigned
         });
       })
       .catch(err => {
@@ -129,7 +124,7 @@ class Ticket extends Component {
 
   addComment = () => {
     const { reply, ticket, comments } = this.state;
-    const {activeUser} = this.props;
+    const { activeUser } = this.props;
 
     console.log('reply', reply);
 
@@ -139,7 +134,7 @@ class Ticket extends Component {
       opened_by: activeUser.id
     };
 
-    this.setState({postingComment: true});
+    this.setState({ postingComment: true });
 
     axios
       .post(`${api}/tickets/${ticket.id}/comments`, newComment)
@@ -158,11 +153,11 @@ class Ticket extends Component {
           ...this.state,
           postingComment: false,
           comments: [...comments, newComment],
-          reply: ""
+          reply: ''
         });
       })
       .catch(err => {
-        this.setState({postingComment: false});
+        this.setState({ postingComment: false });
       });
   };
 
@@ -176,7 +171,7 @@ class Ticket extends Component {
   markResolved = () => {
     const { ticket } = this.state;
     let confirmed = window.confirm(
-      "Are you sure you want to resolve this ticket?\nChanges cannot be made afterwards."
+      'Are you sure you want to resolve this ticket?\nChanges cannot be made afterwards.'
     );
     if (confirmed) {
       axios
@@ -189,15 +184,14 @@ class Ticket extends Component {
           return axios.put(`${api}/tickets/${ticket.id}`, ticket);
         })
         .then(({ data }) => {
-          console.log("ticket after closed:", data);
+          console.log('ticket after closed:', data);
           this.setState({
             ...this.state,
-            assigned: false,
-            assignedTo: null
+            assigned: false
           });
         })
         .then(() => {
-          this.props.history.push("/tickets");
+          this.props.history.push('/tickets');
         })
         .catch(err => {
           console.log(err);
@@ -215,7 +209,6 @@ class Ticket extends Component {
   render() {
     const {
       assigned,
-      assignedTo,
       category,
       comments,
       openedBy,
@@ -226,18 +219,18 @@ class Ticket extends Component {
     } = this.state;
     const { activeUser } = this.props;
 
-    if(loadingTicket) {
+    if (loadingTicket) {
       return (
         <PropagateLoader
-          css={"margin-top: 200px;"} 
-          sizeUnit={"px"}
+          css={'margin-top: 200px;'}
+          sizeUnit={'px'}
           size={15}
           color={'black'}
         />
       );
     }
 
-    if(!loadingTicket) {
+    if (!loadingTicket) {
       console.log(ticket.opened_by, activeUser.id);
     }
     return (
@@ -254,7 +247,7 @@ class Ticket extends Component {
             top
           />
           <Description>
-            <p style={{whiteSpace: "pre-wrap"}}>{`${ticket.description}`}</p>
+            <p style={{ whiteSpace: 'pre-wrap' }}>{`${ticket.description}`}</p>
           </Description>
           <CodeSnippet codeSnippet={comments[0].comment} />
           <Repo comment={comments[1].comment} />
@@ -263,19 +256,20 @@ class Ticket extends Component {
           comments={comments.slice(2)}
           deleteComment={this.deleteComment}
         />
-        {((assigned && activeUser.id === ticket.assigned_to) || activeUser.id === ticket.opened_by) && (
+        {((assigned && activeUser.id === ticket.assigned_to) ||
+          activeUser.id === ticket.opened_by) && (
           <>
             <ReplyWrapper>
               <textarea
-                name="reply"
-                placeholder="Type your reply here.."
+                name='reply'
+                placeholder='Type your reply here..'
                 value={reply}
                 onChange={this.handleChange}
               />
             </ReplyWrapper>
-            <BarLoader 
-              css={"width: 100%; background-color: grey;"} 
-              sizeUnit={"px"}
+            <BarLoader
+              css={'width: 100%; background-color: grey;'}
+              sizeUnit={'px'}
               height={4}
               color={'black'}
               loading={postingComment}

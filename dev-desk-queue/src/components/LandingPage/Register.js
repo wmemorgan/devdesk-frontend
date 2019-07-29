@@ -1,28 +1,27 @@
-import React, { Component } from "react";
-import styled from "styled-components";
-import axios from "axios";
-import { Redirect } from "react-router-dom";
+import React, { Component } from 'react';
+import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 import {
   Form,
   InputWrapper,
   ButtonContainer
-} from "../../styled-components/LandingPage_Styles";
-import { Auth } from "../../authentication/Authentication";
-import { PropagateLoader } from "react-spinners";
+} from '../../styled-components/LandingPage_Styles';
+import { Auth } from '../../authentication/Authentication';
+import { PropagateLoader } from 'react-spinners';
 
 export default class Register extends Component {
   //State
   state = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
     redirectToReferrer: false,
     formError: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: ""
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: ''
     },
     registering: false,
     registerFailed: false
@@ -46,13 +45,13 @@ export default class Register extends Component {
       this.setState({ registering: true });
 
       axios
-        .post("https://api-devdesk.herokuapp.com/api/register", user)
+        .post('https://api-devdesk.herokuapp.com/api/register', user)
         .then(res => {
           this.setState({
             registering: false,
             registerFailed: false
           });
-          return axios.post("https://api-devdesk.herokuapp.com/api/login", {
+          return axios.post('https://api-devdesk.herokuapp.com/api/login', {
             email: email,
             password: password
           });
@@ -68,7 +67,7 @@ export default class Register extends Component {
             setActiveUser(res.data.user);
           });
         })
-        .catch((error) => {
+        .catch(error => {
           this.setState({
             registering: false,
             registerFailed: true
@@ -83,28 +82,28 @@ export default class Register extends Component {
     const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 
     const newFormError = {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: ""
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: ''
     };
 
     if (!firstName) {
-      newFormError.firstName = "Please enter your first name.";
+      newFormError.firstName = 'Please enter your first name.';
       isValid = false;
     }
     if (!lastName) {
-      newFormError.lastName = "Please enter your last name.";
+      newFormError.lastName = 'Please enter your last name.';
       isValid = false;
     }
     if (!email) {
-      newFormError.email = "Please enter your email address.";
+      newFormError.email = 'Please enter your email address.';
       isValid = false;
     } else if (!emailRegex.test(email)) {
-      newFormError.email = "Please enter a valid email address.";
+      newFormError.email = 'Please enter a valid email address.';
     }
     if (!password) {
-      newFormError.password = "Please enter your password";
+      newFormError.password = 'Please enter your password';
       isValid = false;
     }
 
@@ -136,7 +135,7 @@ export default class Register extends Component {
     const { goBack } = this.props;
 
     if (redirectToReferrer === true) {
-      return <Redirect to="/tickets" />;
+      return <Redirect to='/tickets' />;
     }
 
     return (
@@ -148,9 +147,9 @@ export default class Register extends Component {
         <InputWrapper>
           {/* <label>Name</label> */}
           <input
-            type="text"
-            placeholder="First Name"
-            name="firstName"
+            type='text'
+            placeholder='First Name'
+            name='firstName'
             value={this.state.firstName}
             onChange={this.handleChange}
           />
@@ -159,9 +158,9 @@ export default class Register extends Component {
         <InputWrapper>
           {/* <label>Last Name</label> */}
           <input
-            type="text"
-            placeholder="Last Name"
-            name="lastName"
+            type='text'
+            placeholder='Last Name'
+            name='lastName'
             value={this.state.lastName}
             onChange={this.handleChange}
           />
@@ -170,9 +169,9 @@ export default class Register extends Component {
         <InputWrapper>
           {/* <label>Email</label> */}
           <input
-            type="text"
-            placeholder="Email"
-            name="email"
+            type='text'
+            placeholder='Email'
+            name='email'
             value={this.state.email}
             onChange={this.handleChange}
           />
@@ -181,17 +180,17 @@ export default class Register extends Component {
         <InputWrapper>
           {/* <label>Password</label> */}
           <input
-            type="password"
-            placeholder="Password"
-            className="form-control"
-            name="password"
+            type='password'
+            placeholder='Password'
+            className='form-control'
+            name='password'
             value={this.state.password}
             onChange={this.handleChange}
           />
           {formError.password && <span>{formError.password}</span>}
         </InputWrapper>
         <ButtonContainer>
-          <button type="button" onClick={goBack}>
+          <button type='button' onClick={goBack}>
             Go Back
           </button>
           <button onClick={this.registerUser}>Register</button>
@@ -201,13 +200,13 @@ export default class Register extends Component {
             margin-left: calc(100% / 2);
             margin-top: 15px;
           `}
-          sizeUnit={"px"}
+          sizeUnit={'px'}
           size={10}
-          color={"#d2d2d2"}
+          color={'#d2d2d2'}
           loading={registering}
         />
         {registerFailed && (
-          <span className="login-error">
+          <span className='login-error'>
             Cannot register you at this time.
             <br />
             Please try again later.

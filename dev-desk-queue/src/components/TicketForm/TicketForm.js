@@ -1,40 +1,40 @@
-import React from "react";
-import axios from "axios";
+import React from 'react';
+import axios from 'axios';
 import {
   Container,
   FormHeader,
   Form,
   InputWrapper,
   ButtonContainer
-} from "../../styled-components/TicketForm_Styles";
+} from '../../styled-components/TicketForm_Styles';
 
 const api = `https://api-devdesk.herokuapp.com/api`;
 
 class TicketForm extends React.Component {
   state = {
     ticket: {
-      title: "",
-      description: "",
-      snippet: "",
-      language: "monospace",
-      repo: "",
-      category: ""
+      title: '',
+      description: '',
+      snippet: '',
+      language: 'monospace',
+      repo: '',
+      category: ''
     },
     languages: [
-      "monospace",
-      "HTML",
-      "CSS",
-      "LESS",
-      "JavaScript",
-      "Java",
-      "Python"
+      'monospace',
+      'HTML',
+      'CSS',
+      'LESS',
+      'JavaScript',
+      'Java',
+      'Python'
     ],
     formError: {
-      title: "",
-      description: "",
-      snippet: "",
-      repo: "",
-      category: ""
+      title: '',
+      description: '',
+      snippet: '',
+      repo: '',
+      category: ''
     },
     categories: []
   };
@@ -55,7 +55,7 @@ class TicketForm extends React.Component {
       }
     });
 
-    if (e.target.name === "language") {
+    if (e.target.name === 'language') {
     }
   };
 
@@ -84,7 +84,7 @@ class TicketForm extends React.Component {
           });
         })
         .then(res => {
-          console.log("repo comment", res);
+          console.log('repo comment', res);
           this.props.history.push(`/tickets/${ticketID}`);
         })
         .catch(err => {
@@ -96,34 +96,34 @@ class TicketForm extends React.Component {
   formValidated() {
     let isValid = true;
     const { ticket } = this.state;
-    const urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm;
+    const urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/gm;
 
     const newFormError = {
-      title: "",
-      description: "",
-      snippet: "",
-      repo: "",
-      category: ""
+      title: '',
+      description: '',
+      snippet: '',
+      repo: '',
+      category: ''
     };
 
     if (!ticket.title) {
-      newFormError.title = "Title is required field.";
+      newFormError.title = 'Title is required field.';
       isValid = false;
     }
     if (!ticket.description) {
-      newFormError.description = "Description is a required field";
+      newFormError.description = 'Description is a required field';
       isValid = false;
     }
     if (!ticket.snippet) {
-      newFormError.snippet = "Code Snippet is a required field";
+      newFormError.snippet = 'Code Snippet is a required field';
       isValid = false;
     }
     if (ticket.repo && !urlRegex.test(ticket.repo)) {
-      newFormError.repo = "A valid URL must be entered.";
+      newFormError.repo = 'A valid URL must be entered.';
       isValid = false;
     }
     if (!ticket.category) {
-      newFormError.category = "Category is a required field";
+      newFormError.category = 'Category is a required field';
       isValid = false;
     }
 
@@ -150,10 +150,10 @@ class TicketForm extends React.Component {
               Title <span>*</span>
             </label>
             <input
-              type="text"
-              name="title"
-              maxLength="60"
-              placeholder="Enter a new title..."
+              type='text'
+              name='title'
+              maxLength='60'
+              placeholder='Enter a new title...'
               value={ticket.title}
               onChange={this.handleChange}
             />
@@ -164,9 +164,9 @@ class TicketForm extends React.Component {
               Description <span>*</span>
             </label>
             <textarea
-              name="description"
-              maxLength="1000"
-              placeholder="Describe your problem..."
+              name='description'
+              maxLength='1000'
+              placeholder='Describe your problem...'
               value={ticket.description}
               onChange={this.handleChange}
             />
@@ -177,18 +177,18 @@ class TicketForm extends React.Component {
               Code Snippet <span>*</span>
             </label>
             <textarea
-              name="snippet"
-              className="code-snippet"
-              placeholder="Paste your code here.."
+              name='snippet'
+              className='code-snippet'
+              placeholder='Paste your code here..'
               value={ticket.snippet}
               onChange={this.handleChange}
             />
             {formError.snippet && <span>{formError.snippet}</span>}
           </InputWrapper>
           <InputWrapper marginNone>
-            <div className="language-select">
+            <div className='language-select'>
               <label>Format Snippet: </label>
-              <select name="language" onChange={this.handleChange}>
+              <select name='language' onChange={this.handleChange}>
                 {this.state.languages.map((language, i) => (
                   <option key={i} value={language}>
                     {language}
@@ -200,9 +200,9 @@ class TicketForm extends React.Component {
           <InputWrapper>
             <label>Link to Repo</label>
             <input
-              type="text"
-              name="repo"
-              placeholder="https:/github.com/user-name..."
+              type='text'
+              name='repo'
+              placeholder='https:/github.com/user-name...'
               value={ticket.repo}
               onChange={this.handleChange}
             />
@@ -212,8 +212,8 @@ class TicketForm extends React.Component {
             <label>
               Category <span>*</span>
             </label>
-            <select name="category" onChange={this.handleChange}>
-              <option style={{ color: "grey" }} value="">
+            <select name='category' onChange={this.handleChange}>
+              <option style={{ color: 'grey' }} value=''>
                 Choose a Category
               </option>
               {this.state.categories.map((category, i) => (
