@@ -1,5 +1,4 @@
-import styled from "styled-components";
-import { color, fontSizing } from "./theme";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -17,7 +16,7 @@ export const Container = styled.div`
 
   box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.2);
 
-  @media(max-width: 500px) {
+  @media (max-width: 500px) {
     margin-top: 0;
     border-top: none;
   }
@@ -57,8 +56,8 @@ export const StyledUserInfo = styled.div`
   width: 100%;
 
   padding-bottom: 5px;
-  
-  border-bottom: ${props => props.bordered ? "1px solid grey" : "none"};
+
+  border-bottom: ${props => (props.bordered ? '1px solid grey' : 'none')};
 
   span.opened-by {
     font-weight: 400;
@@ -69,7 +68,6 @@ export const StyledUserInfo = styled.div`
     font-size: 1.4rem;
     font-weight: 300;
   }
-
 `;
 
 export const Description = styled.div`
@@ -160,7 +158,7 @@ export const ReplyWrapper = styled.div`
     color: white;
     font-size: 1.4rem;
 
-    background-color: #444E50;
+    background-color: #444e50;
 
     outline: none;
   }

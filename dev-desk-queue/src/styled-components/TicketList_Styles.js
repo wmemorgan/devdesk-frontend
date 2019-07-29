@@ -1,8 +1,7 @@
-import styled from "styled-components";
-import { flex } from "./theme";
+import styled from 'styled-components';
 
 export const Container = styled.div`
-  ${flex("column")}
+  ${({ theme }) => theme.flex('column')}
 
   width: 100%;
   max-width: 1000px;

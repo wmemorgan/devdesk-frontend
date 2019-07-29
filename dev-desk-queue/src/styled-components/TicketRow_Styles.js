@@ -1,6 +1,5 @@
-import styled, {css} from "styled-components";
-import { Link } from "react-router-dom";
-import { flex, color, fontSizing } from "./theme";
+import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Container = styled(Link)`
   display: grid;
@@ -14,34 +13,35 @@ export const Container = styled(Link)`
   margin: 0 0 5px 0;
   padding: 5px 15px;
 
-  color: ${color.secondaryTextColor};
-  font-size: ${fontSizing.s};
+  color: ${({ theme }) => theme.color.secondaryTextColor};
+  font-size: ${({ theme }) => theme.fontSizing.s};
   text-decoration: none;
 
   cursor: pointer;
 
-  background-color: ${color.ticketColor};
+  background-color: ${({ theme }) => theme.color.ticketColor};
 
   &:hover {
-    background-color: ${color.ticketColorHover};
+    background-color: ${({ theme }) => theme.color.ticketColorHover};
   }
 
   &:nth-child(odd) {
-    background-color: ${color.ticketColor_2};
+    background-color: ${({ theme }) => theme.color.ticketColor_2};
   }
 
   &:nth-child(odd):hover {
-    background-color: ${color.ticketColorHover};
+    background-color: ${({ theme }) => theme.color.ticketColorHover};
   }
 
   -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 4px 4px 10px rgba (0, 0, 0, 0.5);
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
 
- 
-
   div:nth-child(odd) {
     font-weight: bold;
+  }
+  div:nth-child(7) {
+    font-weight: 400;
   }
 
   @media (max-width: 800px) {
@@ -64,7 +64,7 @@ export const Container = styled(Link)`
 `;
 
 export const Status = styled.div`
-  ${flex("row", "center", "center")}
+  ${({ theme }) => theme.flex('row', 'center', 'center')}
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,7 +76,12 @@ export const Status = styled.div`
   border-radius: 3px;
 
   background-color: ${props =>
-    props.closed ? color.ticketOpen : color.ticketClosed};
+    props.closed
+      ? props.theme.color.ticketClosed
+      : props.theme.color.ticketOpen};
+
+  color: ${({ theme }) => theme.color.primaryTextColor};
+  font-weight: 300;
 
   @media (max-width: 500px) {
     font-size: 1rem;
@@ -94,43 +99,35 @@ export const StyledAssignButton = styled.button`
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
 
   ${props => {
-    if(props.status === 'assignable') {
+    if (props.status === 'assignable') {
       return css`
         color: white;
-        background-color: green;
-      `
-    }
-    else if(props.status === 'other-user-assigned') {
+        background-color: ${({ theme }) => theme.color.assign};
+      `;
+    } else if (props.status === 'other-user-assigned') {
       return css`
-        background-color: grey;
+        background-color: ${({ theme }) => theme.color.assigned};
         color: black;
         box-shadow: 0 0 0 #000;
-      `
-    }
-    else if(props.status === 'active-user-assigned') {
+      `;
+    } else if (props.status === 'active-user-assigned') {
       return css`
-        background-color: yellow;
+        background-color: ${({ theme }) => theme.color.unassign};
         color: black;
-      `
-    }
-    else if(props.status === 'hidden') {
+      `;
+    } else if (props.status === 'hidden') {
       return css`
         display: none;
-      `
+      `;
     }
   }}
 
   @media (max-width: 500px) {
-
-      /* grid-column-start: 2;
+    /* grid-column-start: 2;
       grid-column-end: 6; */
-      margin: 5px;
-      width: 100%;
-      height: 30px;
-      font-size: 1rem;
-
-    
+    margin: 5px;
+    width: 100%;
+    height: 30px;
+    font-size: 1rem;
   }
 `;
-
-

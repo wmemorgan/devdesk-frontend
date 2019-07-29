@@ -1,5 +1,4 @@
-import styled, { css } from "styled-components";
-import { color } from "./theme";
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -31,7 +30,7 @@ export const TicketCount = styled.div`
     border-bottom: 1px solid black;
     padding: 0 5px;
 
-    background-color: ${color.topBarBgColor};
+    background-color: ${({ theme }) => theme.color.topBarBgColor};
 
     span {
       width: 50%;
@@ -57,8 +56,8 @@ export const TicketCount = styled.div`
 
       padding: 5px 0;
 
-			border: none;
-			outline: none;
+      border: none;
+      outline: none;
       border-right: 1px solid black;
 
       font-size: 1.4rem;
@@ -70,28 +69,30 @@ export const TicketCount = styled.div`
         background-color: #98a4a5;
       }
       cursor: pointer;
-		}
-		
-		button.total-all {
-			${props => props.status === "all" 
-				? css`
-					box-shadow: inset 3px 3px 5px rgb(0, 0, 0, .5);
-					background-color: #98a4a5;
-					
-				` : css`
-					background-color: #acb8b9;
-				`};
-		}
-		button.total-assigned {
-			${props => props.status === "assigned" 
-				? css`
-					box-shadow: inset 3px 3px 5px rgb(0, 0, 0, .5);
-					background-color: #98a4a5;
-					
-				` : css`
-					background-color: #acb8b9;
-				`};
-		}
+    }
+
+    button.total-all {
+      ${props =>
+        props.status === 'all'
+          ? css`
+              box-shadow: inset 3px 3px 5px rgb(0, 0, 0, 0.5);
+              background-color: #98a4a5;
+            `
+          : css`
+              background-color: #acb8b9;
+            `};
+    }
+    button.total-assigned {
+      ${props =>
+        props.status === 'assigned'
+          ? css`
+              box-shadow: inset 3px 3px 5px rgb(0, 0, 0, 0.5);
+              background-color: #98a4a5;
+            `
+          : css`
+              background-color: #acb8b9;
+            `};
+    }
   }
 `;
 
@@ -111,7 +112,7 @@ export const StatusFilters = styled.div`
   div:first-of-type {
     width: 100%;
     padding: 5px 0;
-    background-color: ${color.topBarBgColor};
+    background-color: ${({ theme }) => theme.color.topBarBgColor};
 
     font-size: 1.4rem;
 
@@ -138,52 +139,55 @@ export const StatusFilters = styled.div`
       justify-content: center;
       align-items: center;
 
-      width: calc(100%/3);
+      width: calc(100% / 3);
       height: 100%;
 
       padding: 5px 0;
 
       font-weight: bold;
 
-			border: none;
-			outline: none;
+      border: none;
+      outline: none;
       border-right: 1px solid black;
 
       cursor: pointer;
     }
 
     button.status-all {
-			${props => props.status === "all" 
-				? css`
-					box-shadow: inset 3px 3px 5px rgb(0, 0, 0, .5);
-					background-color: #9aa6a7;
-					
-				` : css`
-					background-color: #acb8b9;
-				`};
+      ${props =>
+        props.status === 'all'
+          ? css`
+              box-shadow: inset 3px 3px 5px rgb(0, 0, 0, 0.5);
+              background-color: #9aa6a7;
+            `
+          : css`
+              background-color: #acb8b9;
+            `};
     }
 
     button.status-open {
-      ${props => props.status === "open" 
-				? css`
-					box-shadow: inset 3px 3px 5px rgb(0, 0, 0, .5);
-					background-color: #4b5f3c;
-					
-				` : css`
-					background-color: #546B43;
-				`};
+      ${props =>
+        props.status === 'open'
+          ? css`
+              box-shadow: inset 3px 3px 5px rgb(0, 0, 0, 0.5);
+              background-color: #4b5f3c;
+            `
+          : css`
+              background-color: #546b43;
+            `};
     }
 
     button.status-resolved {
-			border-right: none;
-      ${props => props.status === "resolved" 
-				? css`
-					box-shadow: inset 3px 3px 5px rgb(0, 0, 0, .5);
-					background-color: #5e808d;
-					
-				` : css`
-					background-color: #6B93A2;
-				`};
+      border-right: none;
+      ${props =>
+        props.status === 'resolved'
+          ? css`
+              box-shadow: inset 3px 3px 5px rgb(0, 0, 0, 0.5);
+              background-color: #5e808d;
+            `
+          : css`
+              background-color: #6b93a2;
+            `};
     }
   }
 `;

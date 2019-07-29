@@ -1,14 +1,13 @@
-import styled from "styled-components";
-import { color, fontSizing, flex } from "./theme";
+import styled from 'styled-components';
 
 export const Container = styled.div`
-  ${flex("column", "center")};
+  ${({ theme }) => theme.flex('column', 'center')};
   width: 100%;
   height: 100vh;
 `;
 
 export const StyledTopBar = styled.div`
-  ${flex("row", "normal", "center")}
+  ${({ theme }) => theme.flex('row', 'normal', 'center')}
   width: 100%;
   height: fit-content;
 
@@ -16,34 +15,34 @@ export const StyledTopBar = styled.div`
 
   border-bottom: 1px solid black;
 
-  background-color: ${color.topBarBgColor};
+  background-color: ${({ theme }) => theme.color.topBarBgColor};
 
   h1 {
-    font-size: ${fontSizing.l};
+    font-size: ${({ theme }) => theme.fontSizing.l};
   }
 `;
 
 export const NavContainer = styled.div`
-  ${flex("row", "center", "space-between")};
+  ${({ theme }) => theme.flex('row', 'center', 'space-between')};
   width: 100%;
   max-width: 1000px;
   flex-grow: 1;
 `;
 
 export const Nav = styled.nav`
-  ${flex("row", "normal", "space-between")}
+  ${({ theme }) => theme.flex('row', 'normal', 'space-between')}
 
   width: 100%;
   max-width: 350px;
 
   a {
-    font-size: ${fontSizing.m};
+    font-size: ${({ theme }) => theme.fontSizing.m};
     text-decoration: none;
-    color: ${color.primaryTextColor};
+    color: ${({ theme }) => theme.color.primaryTextColor};
   }
 
   @media (max-width: 800px) {
-    display: ${props => (props.menuOpen ? "flex" : "none")};
+    display: ${props => (props.menuOpen ? 'flex' : 'none')};
     flex-direction: column;
 
     position: absolute;
@@ -53,7 +52,7 @@ export const Nav = styled.nav`
 
     margin-left: -40px;
 
-    background-color: ${color.mainBgColor};
+    background-color: ${({ theme }) => theme.color.mainBgColor};
 
     a {
       width: 100%;

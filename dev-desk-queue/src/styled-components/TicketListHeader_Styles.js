@@ -1,5 +1,4 @@
-import styled from "styled-components";
-import { color, fontSizing } from "./theme";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: grid;
@@ -25,7 +24,7 @@ export const Container = styled.div`
 
   border-radius: 3px 3px 0 0;
 
-  background-color: ${color.ticketHeaderColor};
+  background-color: ${({ theme }) => theme.color.ticketHeaderColor};
 
   -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 4px 4px 10px rgba (0, 0, 0, 0.5);
@@ -35,8 +34,8 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
 
-    color: ${color.primaryTextColor};
-    font-size: ${fontSizing.s};
+    color: ${({ theme }) => theme.color.primaryTextColor};
+    font-size: ${({ theme }) => theme.fontSizing.s};
 
     span {
       padding-right: 7px;
