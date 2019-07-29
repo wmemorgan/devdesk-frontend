@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import CommentSection from './CommentSection';
-import {
-  Container,
-  TicketInfo,
-  TicketHeader,
-  Description,
-  ReplyWrapper
-} from '../../styled-components/Ticket_Styles';
+import * as S from '../../styled-components/Ticket_Styles';
 import { UserInfo } from './UserInfo';
 import { CodeSnippet } from './CodeSnippet';
 import { Repo } from './Repo';
@@ -234,24 +228,24 @@ class Ticket extends Component {
       console.log(ticket.opened_by, activeUser.id);
     }
     return (
-      <Container>
-        <TicketInfo>
-          <TicketHeader>
+      <S.Container>
+        <S.TicketInfo>
+          <S.TicketHeader>
             <h1>{ticket.title}</h1>
             <span>Category - {category.name}</span>
-          </TicketHeader>
+          </S.TicketHeader>
           <UserInfo
             openedBy={openedBy}
             createdAt={ticket.created_at}
             bordered
             top
           />
-          <Description>
+          <S.Description>
             <p style={{ whiteSpace: 'pre-wrap' }}>{`${ticket.description}`}</p>
-          </Description>
+          </S.Description>
           <CodeSnippet codeSnippet={comments[0].comment} />
           <Repo comment={comments[1].comment} />
-        </TicketInfo>
+        </S.TicketInfo>
         <CommentSection
           comments={comments.slice(2)}
           deleteComment={this.deleteComment}
@@ -259,14 +253,14 @@ class Ticket extends Component {
         {((assigned && activeUser.id === ticket.assigned_to) ||
           activeUser.id === ticket.opened_by) && (
           <>
-            <ReplyWrapper>
+            <S.ReplyWrapper>
               <textarea
                 name='reply'
                 placeholder='Type your reply here..'
                 value={reply}
                 onChange={this.handleChange}
               />
-            </ReplyWrapper>
+            </S.ReplyWrapper>
             <BarLoader
               css={'width: 100%; background-color: grey;'}
               sizeUnit={'px'}
@@ -286,7 +280,7 @@ class Ticket extends Component {
           ticket={ticket}
           activeUser={activeUser}
         />
-      </Container>
+      </S.Container>
     );
   }
 }

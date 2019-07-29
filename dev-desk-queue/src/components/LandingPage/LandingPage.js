@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import {Container, Hero, FormContainer, FormLinkContainer} from "../../styled-components/LandingPage_Styles";
-import Register from "./Register";
-import LogIn from "./LogIn";
+import React, { Component } from 'react';
+import * as S from '../../styled-components/LandingPage_Styles';
+import Register from './Register';
+import LogIn from './LogIn';
 
 export default class LandingPage extends Component {
   state = {
@@ -34,23 +34,23 @@ export default class LandingPage extends Component {
     const { displayRegister, displayLogin } = this.state;
     const { setActiveUser } = this.props;
     return (
-      <Container>
-        <Hero>
-          <FormContainer>
+      <S.Container>
+        <S.Hero>
+          <S.FormContainer>
             <h1>DevDesk_Q</h1>
             {/* <p>Connect with Team Leads and Instructors</p>
             <p>Post your Questions</p>
             <p>Get Help</p>
             <p>Grow as a Developer</p> */}
             {!displayRegister && !displayLogin && (
-              <FormLinkContainer>
-                <button name="displayLogin" onClick={this.displayLogin}>
+              <S.FormLinkContainer>
+                <button name='displayLogin' onClick={this.displayLogin}>
                   Login
                 </button>
-                <button name="displayRegister" onClick={this.displayRegister}>
+                <button name='displayRegister' onClick={this.displayRegister}>
                   Register
                 </button>
-              </FormLinkContainer>
+              </S.FormLinkContainer>
             )}
             {displayRegister && (
               <Register setActiveUser={setActiveUser} goBack={this.goBack} />
@@ -58,9 +58,9 @@ export default class LandingPage extends Component {
             {displayLogin && (
               <LogIn setActiveUser={setActiveUser} goBack={this.goBack} />
             )}
-          </FormContainer>
-        </Hero>
-      </Container>
+          </S.FormContainer>
+        </S.Hero>
+      </S.Container>
     );
   }
 }

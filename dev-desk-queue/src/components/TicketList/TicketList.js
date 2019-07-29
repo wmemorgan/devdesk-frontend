@@ -1,10 +1,10 @@
-import React from "react";
-import axios from "axios";
-import { Container } from "../../styled-components/TicketList_Styles";
-import TicketHeader from "../TicketListHeader/TicketHeader";
-import TicketRow from "../TicketRow/TicketRow";
-import TicketListNav from "./TicketListNav";
-import {ClipLoader} from "react-spinners";
+import React from 'react';
+import axios from 'axios';
+import { Container } from '../../styled-components/TicketList_Styles';
+import TicketHeader from '../TicketListHeader/TicketHeader';
+import TicketRow from '../TicketRow/TicketRow';
+import TicketListNav from './TicketListNav';
+import { ClipLoader } from 'react-spinners';
 
 const api = `https://api-devdesk.herokuapp.com/api`;
 /****************************************************************
@@ -14,15 +14,15 @@ class TicketList extends React.Component {
   state = {
     tickets: [],
     filteredTickets: [],
-    statusFilter: "all",
-    totalTicketFilter: "all",
+    statusFilter: 'all',
+    totalTicketFilter: 'all',
     users: [],
     categories: [],
     loadingTickets: false
   };
 
   componentDidMount() {
-    this.setState({loadingTickets: true});
+    this.setState({ loadingTickets: true });
 
     Promise.all([
       axios.get(`${api}/tickets`),
@@ -47,7 +47,7 @@ class TicketList extends React.Component {
   }
 
   sortBy = (filter, order) => {
-    const {filteredTickets} = this.state;
+    const { filteredTickets } = this.state;
     this.setState({
       ...this.state,
       loadingTickets: false,
@@ -57,32 +57,36 @@ class TicketList extends React.Component {
 
   filterBy = (e, filter) => {
     e.persist();
-    const {tickets} = this.state;
-    const {activeUser} = this.props;
-    let {filteredTickets} = this.state;
-    
-    this.setState({
-      ...this.state,
-      [e.target.name]: filter
-    }, () => {
+    const { tickets } = this.state;
+    const { activeUser } = this.props;
+    let { filteredTickets } = this.state;
 
-      filteredTickets = this.state.totalTicketFilter === "assigned" 
-        ? tickets.filter(ticket => ticket.assigned_to === activeUser.id)
-        : tickets;
-
-      filteredTickets = this.state.statusFilter === "open" 
-        ? filteredTickets.filter(ticket => !ticket.closed) 
-        : this.state.statusFilter === "resolved"
-        ? filteredTickets.filter(ticket => ticket.closed)
-        : filteredTickets;
-
-      this.setState({
+    this.setState(
+      {
         ...this.state,
-        loadingTickets: false,
-        filteredTickets: filteredTickets
-      })
-    })
-  }
+        [e.target.name]: filter
+      },
+      () => {
+        filteredTickets =
+          this.state.totalTicketFilter === 'assigned'
+            ? tickets.filter(ticket => ticket.assigned_to === activeUser.id)
+            : tickets;
+
+        filteredTickets =
+          this.state.statusFilter === 'open'
+            ? filteredTickets.filter(ticket => !ticket.closed)
+            : this.state.statusFilter === 'resolved'
+            ? filteredTickets.filter(ticket => ticket.closed)
+            : filteredTickets;
+
+        this.setState({
+          ...this.state,
+          loadingTickets: false,
+          filteredTickets: filteredTickets
+        });
+      }
+    );
+  };
 
   toggleMenu = () => {
     this.setState({
@@ -91,14 +95,23 @@ class TicketList extends React.Component {
   };
 
   render() {
-    const { loadingTickets, tickets, filteredTickets, users, categories } = this.state;
+    const {
+      loadingTickets,
+      tickets,
+      filteredTickets,
+      users,
+      categories
+    } = this.state;
     const { activeUser } = this.props;
 
     return (
       <Container>
-        <TicketListNav 
-          totalTickets={tickets.length} 
-          assignedTickets={tickets.filter(ticket => ticket.assigned_to === activeUser.id).length}
+        <TicketListNav
+          totalTickets={tickets.length}
+          assignedTickets={
+            tickets.filter(ticket => ticket.assigned_to === activeUser.id)
+              .length
+          }
           filterBy={this.filterBy}
         />
         <TicketHeader sortBy={this.sortBy} />
@@ -112,8 +125,8 @@ class TicketList extends React.Component {
           />
         ))}
         <ClipLoader
-          css={"margin-left: calc(98%/2); margin-top: 200px;"} 
-          sizeUnit={"px"}
+          css={'margin-left: calc(98%/2); margin-top: 200px;'}
+          sizeUnit={'px'}
           size={100}
           color={'black'}
           loading={loadingTickets}
@@ -132,9 +145,9 @@ function compareValues(key, order) {
     }
 
     const val1 =
-      typeof tick1[key] === "string" ? tick1[key].toLowerCase() : tick1[key];
+      typeof tick1[key] === 'string' ? tick1[key].toLowerCase() : tick1[key];
     const val2 =
-      typeof tick2[key] === "string" ? tick2[key].toLowerCase() : tick2[key];
+      typeof tick2[key] === 'string' ? tick2[key].toLowerCase() : tick2[key];
 
     let comparison = 0;
     if (val1 > val2) {
@@ -143,7 +156,7 @@ function compareValues(key, order) {
       comparison = -1;
     }
 
-    return order === "asc" ? comparison * -1 : comparison;
+    return order === 'asc' ? comparison * -1 : comparison;
   };
 }
 

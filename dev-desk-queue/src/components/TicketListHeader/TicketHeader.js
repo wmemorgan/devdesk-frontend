@@ -1,55 +1,52 @@
-import React from "react";
-import {
-  Container,
-  SortIcons
-} from "../../styled-components/TicketListHeader_Styles";
-import { SortUpIcon } from "./SortUpIcon";
-import { SortDownIcon } from "./SortDownIcon";
+import React from 'react';
+import * as S from '../../styled-components/TicketListHeader_Styles';
+import { SortUpIcon } from './SortUpIcon';
+import { SortDownIcon } from './SortDownIcon';
 
 class TicketHeader extends React.Component {
   state = {
     headers: [
       {
-        id: "id",
-        text: "ID",
-        filter: "id",
-        order: "desc",
+        id: 'id',
+        text: 'ID',
+        filter: 'id',
+        order: 'desc',
         active: false
       },
       {
-        text: "Title",
-        filter: "title",
-        order: "desc",
+        text: 'Title',
+        filter: 'title',
+        order: 'desc',
         active: false
       },
       {
-        text: "Date",
-        filter: "created_at",
-        order: "desc",
+        text: 'Date',
+        filter: 'created_at',
+        order: 'desc',
         active: false
       },
       {
-        text: "Category",
-        filter: "category_id",
-        order: "desc",
+        text: 'Category',
+        filter: 'category_id',
+        order: 'desc',
         active: false
       },
       {
-        text: "Opened By",
-        filter: "opened_by",
-        order: "desc",
+        text: 'Opened By',
+        filter: 'opened_by',
+        order: 'desc',
         active: false
       },
       {
-        text: "Assigned To",
-        filter: "assigned_to",
-        order: "desc",
+        text: 'Assigned To',
+        filter: 'assigned_to',
+        order: 'desc',
         active: false
       },
       {
-        text: "Status",
-        filter: "closed",
-        order: "desc",
+        text: 'Status',
+        filter: 'closed',
+        order: 'desc',
         active: false
       }
     ]
@@ -63,7 +60,7 @@ class TicketHeader extends React.Component {
       headers: headers.map(header => ({
         ...header,
         active: header.filter === filter,
-        order: header.order === "asc" ? "desc" : "asc"
+        order: header.order === 'asc' ? 'desc' : 'asc'
       }))
     });
 
@@ -73,17 +70,17 @@ class TicketHeader extends React.Component {
   render() {
     const { headers } = this.state;
     return (
-      <Container>
+      <S.Container>
         {headers.map((header, i) => (
           <div key={i}>
             <span>{header.text}</span>
-            <SortIcons onClick={() => this.sortBy(header.filter, i)}>
+            <S.SortIcons onClick={() => this.sortBy(header.filter, i)}>
               <SortUpIcon header={header} />
               <SortDownIcon header={header} />
-            </SortIcons>
+            </S.SortIcons>
           </div>
         ))}
-      </Container>
+      </S.Container>
     );
   }
 }

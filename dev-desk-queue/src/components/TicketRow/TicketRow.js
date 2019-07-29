@@ -1,13 +1,10 @@
-import React from "react";
-import axios from "axios";
-import {
-  Container,
-  Status,
-} from "../../styled-components/TicketRow_Styles";
-import { OpenedBy } from "./OpenedBy";
-import { CreatedAt } from "./CreatedAt";
-import { AssignedTo } from "./AssignedTo";
-import { AssignButton } from "../Ticket/AssignButton";
+import React from 'react';
+import axios from 'axios';
+import * as S from '../../styled-components/TicketRow_Styles';
+import { OpenedBy } from './OpenedBy';
+import { CreatedAt } from './CreatedAt';
+import { AssignedTo } from './AssignedTo';
+import { AssignButton } from '../Ticket/AssignButton';
 
 const api = `https://api-devdesk.herokuapp.com/api`;
 
@@ -38,7 +35,7 @@ class TicketRow extends React.Component {
       .then(({ data }) => {
         let ticket = data;
 
-        if(ticket.assigned_to) {
+        if (ticket.assigned_to) {
           ticket.assigned_to = null;
         } else {
           ticket.assigned_to = this.props.activeUser.id;
@@ -62,16 +59,16 @@ class TicketRow extends React.Component {
     const { ticket, users, categories, activeUser } = this.props;
     const { assigned, assignedTo } = this.state;
     return (
-      <Container to={`/tickets/${ticket.id}`}>
+      <S.Container to={`/tickets/${ticket.id}`}>
         <div>{ticket.id}</div>
         <div>{ticket.title}</div>
         <CreatedAt createdAt={ticket.created_at} />
         <div>{categories[ticket.category_id - 1].name}</div>
         <OpenedBy ticket={ticket} users={users} />
         <AssignedTo assignedTo={assignedTo} users={users} />
-        <Status closed={ticket.closed}>
-          {ticket.closed ? "Resolved" : "Open"}
-        </Status>
+        <S.Status closed={ticket.closed}>
+          {ticket.closed ? 'Resolved' : 'Open'}
+        </S.Status>
 
         <AssignButton
           handleClick={this.handleClick}
@@ -81,7 +78,7 @@ class TicketRow extends React.Component {
           openedBy={ticket.opened_by}
           activeUserID={activeUser.id}
         />
-      </Container>
+      </S.Container>
     );
   }
 }

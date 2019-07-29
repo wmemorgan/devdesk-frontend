@@ -1,14 +1,10 @@
-import React from "react";
-import {
-  Container,
-  TicketCount,
-  StatusFilters
-} from "../../styled-components/TicketListNav_Styles";
+import React from 'react';
+import * as S from '../../styled-components/TicketListNav_Styles';
 
 class TicketListNav extends React.Component {
   state = {
-    totalTicketFilter: "all",
-    statusFilter: "all"
+    totalTicketFilter: 'all',
+    statusFilter: 'all'
   };
 
   handleClick = e => {
@@ -23,63 +19,63 @@ class TicketListNav extends React.Component {
     const { totalTickets, assignedTickets } = this.props;
     const { totalTicketFilter, statusFilter } = this.state;
     return (
-      <Container>
-        <TicketCount status={totalTicketFilter}>
+      <S.Container>
+        <S.TicketCount status={totalTicketFilter}>
           <div>
             <span>Total Tickets</span>
             <span>Your Tickets</span>
           </div>
           <div>
             <button
-              className="total-all"
-              name="totalTicketFilter"
-              value="all"
+              className='total-all'
+              name='totalTicketFilter'
+              value='all'
               onClick={this.handleClick}
             >
               {totalTickets}
             </button>
             <button
-              className="total-assigned"
-              name="totalTicketFilter"
-              value="assigned"
+              className='total-assigned'
+              name='totalTicketFilter'
+              value='assigned'
               onClick={this.handleClick}
             >
               {assignedTickets}
             </button>
           </div>
-        </TicketCount>
-        <StatusFilters status={statusFilter} >
+        </S.TicketCount>
+        <S.StatusFilters status={statusFilter}>
           <div>
             <span>Filters</span>
           </div>
           <div>
             <button
-              className="status-all"
-              name="statusFilter"
-              value="all"
+              className='status-all'
+              name='statusFilter'
+              value='all'
               onClick={this.handleClick}
             >
               All
             </button>
             <button
-              className="status-open"
-              name="statusFilter"
-              value="open"
+              className='status-open'
+              name='statusFilter'
+              value='open'
               onClick={this.handleClick}
             >
               Open
             </button>
             <button
-              className="status-resolved"
-              name="statusFilter"
-              value="resolved"
+              className='status-resolved'
+              name='statusFilter'
+              value='resolved'
               onClick={this.handleClick}
             >
               Resolved
             </button>
           </div>
-        </StatusFilters>
-      </Container>
+        </S.StatusFilters>
+      </S.Container>
     );
   }
 }
