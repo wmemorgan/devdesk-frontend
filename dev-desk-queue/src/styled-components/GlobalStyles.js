@@ -14,6 +14,10 @@ const GlobalStyle = createGlobalStyle`
     font-size: 62.5%;
   }
 
+  h1 {
+    font-size: ${({ theme }) => theme.fontSizing.l};
+  }
+
   body {
     font-family: 'Open Sans', sans-serif;
     background-color: #454f4f;
