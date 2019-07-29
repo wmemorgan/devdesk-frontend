@@ -8,5 +8,3 @@ export const Auth = {
     this.isAuthenticated = false;
   }
 };
-
-
