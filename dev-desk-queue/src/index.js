@@ -9,11 +9,11 @@ import App from './App';
 // implement withRouter HOC?
 
 ReactDOM.render(
-  <Router>
-    <GlobalStyle />
-    <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme}>
+    <Router>
+      <GlobalStyle />
       <App />
-    </ThemeProvider>
-  </Router>,
+    </Router>
+  </ThemeProvider>,
   document.getElementById('root')
 );
